@@ -1,3 +1,6 @@
+# Copyright (c) 2026 DaKang233.
+# SPDX-License-Identifier: LGPL-3.0-or-later
+
 """Generate ACE's four 16x16 advanced upgrade-card textures.
 
 Keep AE2's original card frame, shading and bottom contacts. Only the central

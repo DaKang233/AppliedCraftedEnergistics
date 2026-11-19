@@ -1,3 +1,5 @@
+// Copyright (c) 2026 DaKang233.
+// SPDX-License-Identifier: LGPL-3.0-or-later
 plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.107'

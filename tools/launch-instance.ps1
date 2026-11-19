@@ -1,4 +1,7 @@
 #Requires -Version 7.0
+# Copyright (c) 2026 DaKang233.
+# SPDX-License-Identifier: LGPL-3.0-or-later
+
 <#
 .SYNOPSIS
     Launch an installed Minecraft version exactly the way

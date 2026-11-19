@@ -1,3 +1,6 @@
+# Copyright (c) 2026 DaKang233.
+# SPDX-License-Identifier: LGPL-3.0-or-later
+
 """Generate Applied Aerostatics storage-cell art in AE2 19.2's new cell style.
 
 The 19.2 cell icons are a single 16x16 sprite with two palettes:

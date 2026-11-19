@@ -1,4 +1,7 @@
 #Requires -Version 7.0
+# Copyright (c) 2026 DaKang233.
+# SPDX-License-Identifier: LGPL-3.0-or-later
+
 <#
 .SYNOPSIS
     Build a throw-away game directory that mirrors the user's mod pack, without
