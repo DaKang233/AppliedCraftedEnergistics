@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ae2:item_cell_housing"
+    },
+    {
+      "item": "ae2:cell_component_4k"
+    },
+    {
+      "item": "createcraftedbeginning:airtight_sheet"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "appliedcraftedenergistics:gas_cell_4k"
+  }
+}
