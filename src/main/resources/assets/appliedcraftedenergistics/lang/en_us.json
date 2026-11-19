@@ -1,0 +1,51 @@
+{
+  "itemGroup.appliedcraftedenergistics": "Applied Crafted Energistics",
+
+  "item.appliedcraftedenergistics.gas_cell_1k": "1k ME Gas Storage Cell",
+  "item.appliedcraftedenergistics.gas_cell_4k": "4k ME Gas Storage Cell",
+  "item.appliedcraftedenergistics.gas_cell_16k": "16k ME Gas Storage Cell",
+  "item.appliedcraftedenergistics.gas_cell_64k": "64k ME Gas Storage Cell",
+  "item.appliedcraftedenergistics.gas_cell_256k": "256k ME Gas Storage Cell",
+
+  "block.appliedcraftedenergistics.me_gas_interface": "ME Gas Interface",
+  "block.appliedcraftedenergistics.me_gas_interface.desc": "Bridges an ME network and an adjacent gas tank or gas pipe network, with a real buffer tank in between.",
+
+  "item.appliedcraftedenergistics.gas_p2p_tunnel": "Gas P2P Tunnel",
+  "item.appliedcraftedenergistics.gas_p2p_tunnel.desc": "Moves gas between linked faces through the ME network. Right-click with a gas canister to attune.",
+
+  "item.appliedcraftedenergistics.pressure_card": "High-Pressure Card",
+  "item.appliedcraftedenergistics.pressure_card.desc": "Raises a gas cell's rated pressure from 16 atm to CCB's hard limit of 24 atm (x1.5 capacity).",
+  "item.appliedcraftedenergistics.volume_card": "Volume Card",
+  "item.appliedcraftedenergistics.volume_card.desc": "Adds 50% virtual vessel volume to a gas cell. Up to 4 per cell.",
+  "item.appliedcraftedenergistics.type_expansion_card": "Type Expansion Card",
+  "item.appliedcraftedenergistics.type_expansion_card.desc": "Lets a gas cell hold 4 more gas types. Up to 2 per cell.",
+  "item.appliedcraftedenergistics.relief_valve_card": "Relief Valve Card",
+  "item.appliedcraftedenergistics.relief_valve_card.desc": "Vents the excess when upgrading shrinks a gas cell below its contents.",
+
+  "appliedcraftedenergistics.key_type.gas": "Gas",
+
+  "gui.appliedcraftedenergistics.title": "Applied Crafted Energistics",
+  "gui.appliedcraftedenergistics.external_gas_storage": "External Gas Storage",
+  "gui.appliedcraftedenergistics.interface.buffer": "Buffer",
+  "gui.appliedcraftedenergistics.interface.pressure": "Pressure",
+  "gui.appliedcraftedenergistics.interface.supply_pressure": "Supply pressure",
+  "gui.appliedcraftedenergistics.interface.mode": "Mode",
+  "gui.appliedcraftedenergistics.interface.overpressure": "Overpressure",
+  "gui.appliedcraftedenergistics.interface.blocked": "Blocked",
+
+  "gui.appliedcraftedenergistics.mode.import": "Import",
+  "gui.appliedcraftedenergistics.mode.export": "Export",
+  "gui.appliedcraftedenergistics.mode.both": "Import & Export",
+  "gui.appliedcraftedenergistics.mode.off": "Off",
+
+  "gui.appliedcraftedenergistics.p2p_attunement_gas": "Gas Tank / Canister",
+
+  "tooltip.appliedcraftedenergistics.cell.capacity": "Capacity: %s",
+  "tooltip.appliedcraftedenergistics.cell.volume": "Equivalent volume: %s",
+  "tooltip.appliedcraftedenergistics.cell.rated_pressure": "Rated pressure: %s atm",
+  "tooltip.appliedcraftedenergistics.cell.virtual_volume": "Virtual vessel volume: %s",
+  "tooltip.appliedcraftedenergistics.cell.types": "Storable gas types: %s",
+  "tooltip.appliedcraftedenergistics.cell.pressure_note": "Gas is stored at the cell's rated pressure; the cell is a virtual vessel and never takes part in CCB overpressure.",
+  "tooltip.appliedcraftedenergistics.cell.carded_note": "Upgrade cards boost capacity, rated pressure and gas types; a carded cell therefore reports more AE bytes.",
+  "tooltip.appliedcraftedenergistics.cell.overfilled_note": "Over-filled: remove gas or install a Relief Valve Card."
+}

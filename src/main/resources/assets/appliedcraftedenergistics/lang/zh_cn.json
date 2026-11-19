@@ -1,0 +1,51 @@
+{
+  "itemGroup.appliedcraftedenergistics": "应用机巧能源",
+
+  "item.appliedcraftedenergistics.gas_cell_1k": "1k ME 气体存储元件",
+  "item.appliedcraftedenergistics.gas_cell_4k": "4k ME 气体存储元件",
+  "item.appliedcraftedenergistics.gas_cell_16k": "16k ME 气体存储元件",
+  "item.appliedcraftedenergistics.gas_cell_64k": "64k ME 气体存储元件",
+  "item.appliedcraftedenergistics.gas_cell_256k": "256k ME 气体存储元件",
+
+  "block.appliedcraftedenergistics.me_gas_interface": "ME 气体接口",
+  "block.appliedcraftedenergistics.me_gas_interface.desc": "将 ME 网络与相邻的气体储罐或气管网连接起来，中间带一个真实的缓冲罐。",
+
+  "item.appliedcraftedenergistics.gas_p2p_tunnel": "气体 P2P 隧道",
+  "item.appliedcraftedenergistics.gas_p2p_tunnel.desc": "通过 ME 网络在已连接的两个面之间输送气体。手持气罐右击可调谐类型。",
+
+  "item.appliedcraftedenergistics.pressure_card": "高压卡",
+  "item.appliedcraftedenergistics.pressure_card.desc": "把气体元件的额定气压从 16 atm 提升到 CCB 硬上限 24 atm（容量 ×1.5）。",
+  "item.appliedcraftedenergistics.volume_card": "扩容卡",
+  "item.appliedcraftedenergistics.volume_card.desc": "每张为气体元件增加 50% 虚拟容积，每个元件最多 4 张。",
+  "item.appliedcraftedenergistics.type_expansion_card": "多类型卡",
+  "item.appliedcraftedenergistics.type_expansion_card.desc": "让气体元件多存 4 种气体，每个元件最多 2 张。",
+  "item.appliedcraftedenergistics.relief_valve_card": "安全阀卡",
+  "item.appliedcraftedenergistics.relief_valve_card.desc": "升级导致元件容量小于存量时，自动排掉超出的气体。",
+
+  "appliedcraftedenergistics.key_type.gas": "气体",
+
+  "gui.appliedcraftedenergistics.title": "应用机巧能源",
+  "gui.appliedcraftedenergistics.external_gas_storage": "外部气体存储",
+  "gui.appliedcraftedenergistics.interface.buffer": "缓冲罐",
+  "gui.appliedcraftedenergistics.interface.pressure": "气压",
+  "gui.appliedcraftedenergistics.interface.supply_pressure": "供给压力",
+  "gui.appliedcraftedenergistics.interface.mode": "模式",
+  "gui.appliedcraftedenergistics.interface.overpressure": "过压",
+  "gui.appliedcraftedenergistics.interface.blocked": "阻塞",
+
+  "gui.appliedcraftedenergistics.mode.import": "输入",
+  "gui.appliedcraftedenergistics.mode.export": "输出",
+  "gui.appliedcraftedenergistics.mode.both": "双向",
+  "gui.appliedcraftedenergistics.mode.off": "关闭",
+
+  "gui.appliedcraftedenergistics.p2p_attunement_gas": "气体储罐 / 气罐",
+
+  "tooltip.appliedcraftedenergistics.cell.capacity": "容量：%s",
+  "tooltip.appliedcraftedenergistics.cell.volume": "等效体积：%s",
+  "tooltip.appliedcraftedenergistics.cell.rated_pressure": "额定气压：%s atm",
+  "tooltip.appliedcraftedenergistics.cell.virtual_volume": "虚拟容积：%s",
+  "tooltip.appliedcraftedenergistics.cell.types": "可存气体种类：%s",
+  "tooltip.appliedcraftedenergistics.cell.pressure_note": "气体按元件额定气压折算存储；元件只是虚拟容器，不参与 CCB 的过压机制。",
+  "tooltip.appliedcraftedenergistics.cell.carded_note": "升级卡会提升容量、额定气压与可存气体种类，因此装卡后元件显示的 AE 字节数会相应增加。",
+  "tooltip.appliedcraftedenergistics.cell.overfilled_note": "已超装：请取出气体，或安装安全阀卡。"
+}
