@@ -1,0 +1,58 @@
+// ---------------------------------------------------------------------------
+// Mojang libraries mirror - OPT-IN, OFF BY DEFAULT. Read this before enabling.
+//
+// *** DO NOT ENABLE THIS AS-IS ON THIS MACHINE. ***
+// The BMCLAPI "maven" path only mirrors PART OF libraries.minecraft.net. I
+// measured it on 2026-11-19 with HEAD requests:
+//
+//   com/mojang/brigadier/1.3.10                    -> 200 OK (80,082 B)
+//   com/mojang/logging/1.2.7                       -> TLS error
+//   com/mojang/datafixerupper/8.0.16               -> TLS error
+//   org/lwjgl/lwjgl-glfw/3.3.3-natives-windows-x86 -> 403 Forbidden
+//   org/lwjgl/lwjgl/3.3.3-natives-windows          -> 403 Forbidden
+//   org/lwjgl/lwjgl-stb/3.3.3-natives-windows      -> 403 Forbidden
+//
+// The lwjgl natives are exactly the artifacts whose download killed the third
+// build attempt, so rewriting EVERY libraries.minecraft.net repository to
+// BMCLAPI would replace an intermittent TLS failure with a guaranteed 403 on a
+// cold cache. That is worse, so the rewrite stays opt-in.
+//
+// What actually fixed cold builds on this machine:
+//   * retry/timeout properties in gradle.properties (see BUILD_STATUS.md §5)
+//   * `--max-workers=1`, which serialises artifact downloads and thereby avoids
+//     Gradle's keep-alive race against servers that closed an idle socket.
+//   * dropping maven.createmod.net by using the identical jar in libs/.
+// With those, all 130 Mojang libraries and the whole NeoForm pipeline
+// (download + decompile + patch + recompile, 148 s) completed successfully.
+//
+// Enable anyway (e.g. if you have confirmed BMCLAPI serves everything YOU need):
+//   $env:MOJANG_MIRROR = '1'
+// Install: copy to %USERPROFILE%\.gradle\init.d\mojang-mirror.gradle
+// ---------------------------------------------------------------------------
+final String MIRROR = 'https://bmclapi2.bangbang93.com/maven'
+
+if (System.getenv('MOJANG_MIRROR') == '1') {
+    def fixRepos = { repos ->
+        repos.withType(MavenArtifactRepository).configureEach { r ->
+            def u = r.url
+            if (u != null && u.toString().contains('libraries.minecraft.net')) {
+                // Only the URL may change: renaming a repository after it has
+                // been added throws "The name of an ArtifactRepository cannot
+                // be changed after it has been added to a repository container".
+                r.url = MIRROR
+            }
+        }
+    }
+    allprojects { p ->
+        fixRepos(p.repositories)
+        fixRepos(p.buildscript.repositories)
+        p.afterEvaluate { fixRepos(p.repositories) }
+    }
+    settingsEvaluated { s ->
+        fixRepos(s.pluginManagement.repositories)
+        s.gradle.allprojects { p -> fixRepos(p.repositories) }
+    }
+    logger.lifecycle("[mojang-mirror] ACTIVE: libraries.minecraft.net -> ${MIRROR} (partial mirror - lwjgl natives 403)")
+} else {
+    logger.info('[mojang-mirror] installed but inactive; set MOJANG_MIRROR=1 to enable')
+}
