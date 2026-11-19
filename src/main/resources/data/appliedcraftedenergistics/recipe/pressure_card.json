@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "ae2:advanced_card"},
+    {"item": "createcraftedbeginning:airtight_sheet"},
+    {"item": "minecraft:iron_ingot"}
+  ],
+  "result": {
+    "count": 1,
+    "id": "appliedcraftedenergistics:pressure_card"
+  }
+}
