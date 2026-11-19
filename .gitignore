@@ -1,0 +1,42 @@
+# Gradle / build output
+build/
+.gradle/
+run/
+run-instance/
+src/generated/resources/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.eclipse/
+bin/
+.settings/
+.classpath
+.project
+
+# Local environment (see env.example); machine-specific paths stay out of the repository
+.env
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+*.log.bak
+
+# Generated launch harness files (absolute paths, machine-specific)
+tools/launch-*.args.txt
+tools/launch-*.at.txt
+
+# Machine-generated logs and texture dumps: they contain absolute local paths / user names, so they
+# stay out of the repository. Regenerate logs with tools/prepare-run-instance.ps1 and
+# tools/launch-instance.ps1 (or `gradlew runData` / `gradlew runServer`).
+docs/run-logs/
+docs/build-logs/
+
+# Notes
+# libs/*.jar is intentionally NOT ignored: the project compiles against the exact AE2 / Create /
+# Create: Crafted Beginning / Flywheel / Ponder / Registrate jars the target pack ships, and CCB is
+# not published to any Maven repository. Committing them keeps a fresh clone buildable offline.
+# docs/artifacts/appliedcraftedenergistics-0.1.0.jar is the immutable sha-pinned release copy.

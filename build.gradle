@@ -1,0 +1,179 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.107'
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+version = mod_version
+group = mod_group_id
+
+repositories {
+    mavenCentral()                                        // AE2 (+ its GuideME runtime dep)
+    maven { name = 'CreateMod'; url = 'https://maven.createmod.net' } // Create
+}
+
+base {
+    archivesName = "${mod_id}-${minecraft_version}-neoforge"
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    // accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        // Dedicated server you can log into during development. Says "dev login"
+        // because NeoForge dev servers run in offline mode: any username is
+        // accepted, no Mojang account or auth token is needed. EULA is written by
+        // ./gradlew.bat prepareRun (see run/eula.txt).
+        devLogin {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all',
+                    '--output', file('src/generated/resources/').getAbsolutePath(),
+                    '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            gameDirectory = project.file('run')
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+// Resources produced by datagen (`./gradlew.bat runData`).
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+// 'localRuntime' = present when testing in dev, but never leaked to dependents.
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+dependencies {
+    // --- Applied Energistics 2 (Maven Central) -----------------------------
+    // 'implementation' feeds BOTH the compile classpath and the dev runtime
+    // classpath, so AE2 is present for runClient/runServer/runData.
+    // AE2 also pulls its GuideME runtime dependency transitively.
+    implementation "org.appliedenergistics:appliedenergistics2:${ae2_version}"
+
+    // --- Create -------------------------------------------------------------
+    // CANONICAL UPSTREAM COORDINATE is
+    //   implementation "com.simibubi.create:create-1.21.1:${create_version}"
+    // from https://maven.createmod.net, but we consume the identical jar from
+    // ./libs instead because maven.createmod.net RSTs Gradle's TLS handshake
+    // intermittently on this machine. The two jars are the same build: same
+    // Git-Hash ac0c444d9828da3453ae8cc65338e8de063286fb, same 12536 entries,
+    // same nested jars - only the MANIFEST timestamp differs. See
+    // docs/BUILD_STATUS.md ("Network caveats").
+    //
+    // The Create jar is SELF-CONTAINED: flywheel 1.0.6, ponder 1.0.82 and
+    // Registrate 1.3.0 are nested inside it as META-INF/jarjar jars, which
+    // FML's JarJar loader mounts at runtime. A flat file dependency therefore
+    // yields a complete, working Create with zero transitive resolution - and
+    // deliberately so: Create's .pom also declares those three (plus a dozen
+    // optional integrations) as transitive *runtime* deps, and taking them
+    // would either double-load flywheel/ponder (duplicate-mod crash) or force
+    // us to resolve jei / ftb-* / journeymap / cc-tweaked / architectury.
+    implementation files("libs/create-1.21.1-6.0.10.jar")
+
+    // Compile-only views of the jars nested inside Create, so application code
+    // can reference the Flywheel / Ponder / Registrate APIs. NOT on the runtime
+    // classpath: JarJar already provides exactly one copy at runtime, and a
+    // second copy would be a duplicate-mod crash.
+    compileOnly files(
+            "libs/flywheel-neoforge-1.21.1-1.0.6.jar",
+            "libs/ponder-neoforge-1.0.82+mc1.21.1.jar",
+            "libs/Registrate-MC1.21-1.3.0+67.jar"
+    )
+
+    // --- Create: Crafted Beginning ------------------------------------------
+    // Not published to any maven; ./libs is the only source. 'implementation'
+    // covers compilation, 'localRuntime' pins it into the dev runtime only (it
+    // is never leaked to anyone depending on this mod).
+    implementation files("libs/createcraftedbeginning-${ccb_version}.jar")
+    localRuntime files("libs/createcraftedbeginning-${ccb_version}.jar")
+
+    // Optional fallback: if maven.createmod.net is unreachable, replace the
+    // Create line above with the local copy (content-identical: same git hash).
+    //   implementation files("libs/create-1.21.1-6.0.10.jar")
+}
+
+// Expands ${placeholders} in src/main/templates into the real mod metadata.
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            minecraft_version        : minecraft_version,
+            minecraft_version_range  : minecraft_version_range,
+            neo_version              : neo_version,
+            neo_version_range        : neo_version_range,
+            loader_version_range     : loader_version_range,
+            mod_id                   : mod_id,
+            mod_name                 : mod_name,
+            mod_license              : mod_license,
+            mod_version              : mod_version,
+            mod_authors              : mod_authors,
+            mod_description          : mod_description,
+            ae2_version              : ae2_version,
+            ae2_version_range        : ae2_version_range,
+            create_version_range     : create_version_range,
+            ccb_version              : ccb_version,
+            ccb_version_range        : ccb_version_range
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// Accept the Minecraft EULA before any server run config starts, so `devLogin`
+// works without an interactive prompt on a fresh checkout.
+tasks.configureEach { task ->
+    if (task.name in ['prepareRunServer', 'prepareRunDevLogin']) {
+        task.doFirst {
+            def runDir = file('run')
+            runDir.mkdirs()
+            def eula = new File(runDir, 'eula.txt')
+            if (!eula.exists() || !eula.text.contains('eula=true')) {
+                eula.text = "# Accepted for local development only.\neula=true\n"
+            }
+        }
+    }
+}

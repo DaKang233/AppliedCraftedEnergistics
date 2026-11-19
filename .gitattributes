@@ -1,0 +1,6 @@
+# Normalise text files in the repository, keep binaries untouched.
+* text=auto
+*.jar binary
+*.png binary
+*.ps1 text
+*.bat text
