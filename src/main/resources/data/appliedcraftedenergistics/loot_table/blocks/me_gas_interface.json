@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "appliedcraftedenergistics:blocks/me_gas_interface",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "appliedcraftedenergistics:me_gas_interface"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

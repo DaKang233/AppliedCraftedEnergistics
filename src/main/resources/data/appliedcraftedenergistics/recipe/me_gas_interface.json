@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "tag": "c:ingots/iron"
+    },
+    "b": {
+      "tag": "c:glass_blocks/cheap"
+    },
+    "c": {
+      "item": "ae2:annihilation_core"
+    },
+    "d": {
+      "item": "ae2:formation_core"
+    },
+    "e": {
+      "item": "createcraftedbeginning:airtight_tank"
+    }
+  },
+  "pattern": [
+    "aba",
+    "ced",
+    "aba"
+  ],
+  "result": {
+    "count": 1,
+    "id": "appliedcraftedenergistics:me_gas_interface"
+  }
+}
