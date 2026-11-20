@@ -131,7 +131,7 @@ if (result.released()) { /* 才提交 drain */ }
 | 9 配置 + 9 缓存槽、6 升级槽、逐槽目标数量/压力/模式 | 已实现 |
 | `volume = targetAmount / targetPressure` 的 CCB 容器视图 | 已实现（`GasInterfaceStorageView`） |
 | 逐槽控制卡（BOTH 默认，安装后 INPUT/OUTPUT/BOTH/OFF） | 已实现 |
-| 安全阀卡（20 atm，`GasReleaseService` 径向 OVERFLOW 真实泄压） | 已实现（只有释放成功才扣气） |
+| 安全阀卡（20 atm，`GasReleaseService` 径向 OVERFLOW 真实泄压） | 已实现；运行时验证 24 atm 下每次 tick 真实释放 1,000 GU |
 | 旧 8 kL 缓冲罐气体迁入第一个空槽 | 已实现 |
 | 移除 `AeInterfaceGasCompat` | 已实现 |
 | 气体样本物品 + `gas_id` 组件、气体容器右键标记 | 已实现 |

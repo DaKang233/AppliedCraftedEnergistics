@@ -348,3 +348,21 @@ or an empty log plus a non-zero java exit.
   `JEI integration: gas ingredients can be dragged onto the gas ME Interface's config slots`
 - 说明 `AceJeiPlugin.registerGuiHandlers` 已被 JEI 调用、ghost 拖拽 handler 注册成功；
 - 该行在进入世界后出现（JEI 在客户端运行期加载插件），主菜单阶段不会打印。
+### 0.2.1 气体路径运行时测试（2026-11-21，KubeJS 驱动）
+
+在真实世界中通过 Java 互操作直接调用接口的 CCB 视图（`GasInterfaceStorageView`），
+不依赖 AE 网络供电，验证结果（完整日志见本轮 run-instance 输出）：
+
+| 检查项 | 结果 |
+|---|---|
+| steam 气体解析 | `createcraftedbeginning:steam`，非空 |
+| 未配置槽位 fill 32,000 GU | `fill=32000 stored=32000 volume=64000 pressure=50000 Pa max=1536000`（0.5 atm，符合 `32000/64000`） |
+| drain 32,000 GU | `drain=32000 storedAfter=0` |
+| 无逐槽控制卡时 OFF 模式 | fill 仍为 32,000（模式未生效，统一 BOTH）✓ |
+| 安装控制卡 + OFF | fill=0 ✓ |
+| 移除控制卡 | fill 恢复 32,000 ✓ |
+| 安全阀（20 atm 阈值） | 装满到 1,536,000 GU / 2,400,000 Pa（24 atm），调用 `GasSafetyValve.tick` 后 1,535,000 GU / 2,398,437 Pa：**真实释放 1,000 GU 并经 CCB `GasReleaseService` 提交** ✓ |
+| 事务快照 | `captureTransferSnapshot()` 非空，`restore()` 可恢复 ✓ |
+
+未覆盖：与真实 CCB 管道相邻时的求解器交互、ME 网格供电下的自动补货、目标压力配置（KubeJS 构造
+`GenericStack` 时重载歧义，已由代码测试覆盖公式）、旧存档迁移（代码审查覆盖）。
