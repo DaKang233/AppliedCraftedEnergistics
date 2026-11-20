@@ -46,7 +46,7 @@ public final class ACECapabilities {
         event.registerBlockEntity(
                 GasCapabilities.BLOCK,
                 type,
-                (be, side) -> be.getTank());
+                (be, side) -> be.getGasView());
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,

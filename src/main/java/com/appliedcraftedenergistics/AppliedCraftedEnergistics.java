@@ -12,7 +12,6 @@ import com.appliedcraftedenergistics.init.ACECapabilities;
 import com.appliedcraftedenergistics.init.ACEMenus;
 import com.appliedcraftedenergistics.init.ACEParts;
 import com.appliedcraftedenergistics.integration.ACEGasIntegration;
-import com.appliedcraftedenergistics.integration.AeInterfaceGasCompat;
 import com.appliedcraftedenergistics.gas.GasKeyType;
 
 import appeng.api.stacks.AEKeyType;
@@ -61,9 +60,7 @@ public final class AppliedCraftedEnergistics {
         ACECapabilities.register(modBus);
         ACEParts.register(modBus);
 
-        // Lets CCB pipes drain gas out of AE2's stock ME Interface block (the pull path that AE2
-        // itself does not provide). Ordering-safe: the provider resolves the inventory at query time.
-        modBus.addListener(AeInterfaceGasCompat::registerCapabilities);
+
 
         container.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

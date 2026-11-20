@@ -7,9 +7,19 @@
   ],
   "generatedBackground": {
     "width": 176,
-    "height": 224
+    "height": 222
   },
   "slots": {
+    "CONFIG": {
+      "left": 8,
+      "top": 20,
+      "grid": "HORIZONTAL"
+    },
+    "STORAGE": {
+      "left": 8,
+      "top": 38,
+      "grid": "HORIZONTAL"
+    },
     "UPGRADE": {
       "right": 2,
       "top": 0,
@@ -20,59 +30,6 @@
     "dialog_title": {
       "text": { "translate": "block.appliedcraftedenergistics.me_gas_interface" },
       "position": { "left": 8, "top": 6 }
-    },
-    "buffer_label": {
-      "text": { "translate": "gui.appliedcraftedenergistics.interface.buffer" },
-      "position": { "left": 8, "top": 20 }
-    },
-    "buffer_value": {
-      "text": { "text": "" },
-      "position": { "left": 8, "top": 30 }
-    },
-    "pressure_label": {
-      "text": { "translate": "gui.appliedcraftedenergistics.interface.pressure" },
-      "position": { "left": 8, "top": 42 }
-    },
-    "pressure_value": {
-      "text": { "text": "" },
-      "position": { "left": 8, "top": 52 }
-    },
-    "status_value": {
-      "text": { "text": "" },
-      "color": "ERROR",
-      "position": { "left": 8, "top": 64 }
-    },
-    "mode_label": {
-      "text": { "translate": "gui.appliedcraftedenergistics.interface.mode" },
-      "position": { "left": 8, "top": 78 }
-    },
-    "supply_label": {
-      "text": { "translate": "gui.appliedcraftedenergistics.interface.supply_pressure" },
-      "position": { "left": 8, "top": 96 }
-    },
-    "setpoint_value": {
-      "text": { "text": "" },
-      "position": { "left": 30, "top": 114 }
-    }
-  },
-  "widgets": {
-    "mode_button": {
-      "left": 48,
-      "top": 74,
-      "width": 94,
-      "height": 16
-    },
-    "supply_down": {
-      "left": 8,
-      "top": 110,
-      "width": 18,
-      "height": 16
-    },
-    "supply_up": {
-      "left": 104,
-      "top": 110,
-      "width": 18,
-      "height": 16
     }
   }
 }

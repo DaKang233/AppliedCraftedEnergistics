@@ -47,5 +47,13 @@
   "tooltip.appliedcraftedenergistics.cell.types": "Storable gas types: %s",
   "tooltip.appliedcraftedenergistics.cell.pressure_note": "Gas is stored at the cell's rated pressure; the cell is a virtual vessel and never takes part in CCB overpressure.",
   "tooltip.appliedcraftedenergistics.cell.carded_note": "Upgrade cards boost capacity, rated pressure and gas types; a carded cell therefore reports more AE bytes.",
-  "tooltip.appliedcraftedenergistics.cell.overfilled_note": "Over-filled: remove gas or install a Relief Valve Card."
+  "tooltip.appliedcraftedenergistics.cell.overfilled_note": "Over-filled: remove gas or install a Relief Valve Card.",
+  "item.appliedcraftedenergistics.slot_control_card": "Slot Control Card",
+  "item.appliedcraftedenergistics.slot_control_card.desc": "Unlocks independent Input / Output / Both / Off control for each of the gas ME Interface's nine slots.",
+  "item.appliedcraftedenergistics.safety_valve_card": "Safety Valve Card",
+  "item.appliedcraftedenergistics.safety_valve_card.desc": "Vents dangerous overpressure from the gas ME Interface through Create: Crafted Beginning's real gas release.",
+  "gui.appliedcraftedenergistics.slot_mode.input": "Input",
+  "gui.appliedcraftedenergistics.slot_mode.output": "Output",
+  "gui.appliedcraftedenergistics.slot_mode.both": "Both",
+  "gui.appliedcraftedenergistics.slot_mode.off": "Off"
 }

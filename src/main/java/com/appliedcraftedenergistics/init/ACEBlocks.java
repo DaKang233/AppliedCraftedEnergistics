@@ -55,12 +55,14 @@ public final class ACEBlocks {
     }
 
     /**
-     * Only speed cards are supported: they raise the transfer rate ({@link GasInterfaceBlockEntity}
-     * reads them lazily). Pressure limits are not upgradable on purpose — the vessel is rated to CCB's
-     * hard ceiling and the supply pressure is a config/design decision, not something a card should be
-     * able to push past.
+     * Speed cards raise the network transfer rate; the slot-control card unlocks per-slot modes; the
+     * safety-valve card vents overpressure through CCB's real gas release. Pressure limits themselves
+     * are not upgradable: the per-slot target pressure is clamped to CCB's safe range.
      */
     private static void registerUpgrades() {
-        Upgrades.add(AEItems.SPEED_CARD, ME_GAS_INTERFACE, com.appliedcraftedenergistics.device.GasInterfaceBlockEntity.MAX_SPEED_CARDS);
+        Upgrades.add(AEItems.SPEED_CARD, ME_GAS_INTERFACE,
+                com.appliedcraftedenergistics.device.GasInterfaceBlockEntity.MAX_SPEED_CARDS);
+        Upgrades.add(ACECards.SLOT_CONTROL_CARD, ME_GAS_INTERFACE, 1);
+        Upgrades.add(ACECards.SAFETY_VALVE_CARD, ME_GAS_INTERFACE, 1);
     }
 }

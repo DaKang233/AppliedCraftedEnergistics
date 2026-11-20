@@ -13,11 +13,13 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 /**
- * Upgrade cards for the gas storage cells.
+ * Upgrade cards for the gas storage cells and the gas ME Interface.
  *
  * <p>Two kinds live here:</p>
  * <ul>
- *   <li>the four gas-specific cards — volume, pressure, type expansion and a relief valve;</li>
+ *   <li>the four gas-specific cell cards — volume, pressure, type expansion and a relief valve;</li>
+ *   <li>two interface cards — per-slot transfer control and a safety valve that vents overpressure
+ *       through CCB's real gas release;</li>
  *   <li>the registration that lets AE2's own storage-cell cards (inverter, equal distribution,
  *       overflow destruction) work on our cells. AE2 only registers those for its own cell items, so
  *       without this block the cell workbench would reject them.</li>
@@ -34,6 +36,10 @@ public final class ACECards {
     public static final DeferredItem<Item> TYPE_EXPANSION_CARD = card("type_expansion_card");
     /** Vents the overfill when an upgrade change shrinks the cell below its contents. */
     public static final DeferredItem<Item> RELIEF_VALVE_CARD = card("relief_valve_card");
+    /** Unlocks per-slot INPUT/OUTPUT/BOTH/OFF control on the gas ME Interface. */
+    public static final DeferredItem<Item> SLOT_CONTROL_CARD = card("slot_control_card");
+    /** Vents overpressure from the gas ME Interface through CCB's real gas release. */
+    public static final DeferredItem<Item> SAFETY_VALVE_CARD = card("safety_valve_card");
 
     /** Shared upgrade group so that card tooltips aggregate across all five cell tiers. */
     public static final String GROUP = AppliedCraftedEnergistics.MODID + ".gas_cell";

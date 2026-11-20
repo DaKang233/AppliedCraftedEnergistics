@@ -47,5 +47,13 @@
   "tooltip.appliedcraftedenergistics.cell.types": "可存气体种类：%s",
   "tooltip.appliedcraftedenergistics.cell.pressure_note": "气体按元件额定气压折算存储；元件只是虚拟容器，不参与 CCB 的过压机制。",
   "tooltip.appliedcraftedenergistics.cell.carded_note": "升级卡会提升容量、额定气压与可存气体种类，因此装卡后元件显示的 AE 字节数会相应增加。",
-  "tooltip.appliedcraftedenergistics.cell.overfilled_note": "已超装：请取出气体，或安装安全阀卡。"
+  "tooltip.appliedcraftedenergistics.cell.overfilled_note": "已超装：请取出气体，或安装安全阀卡。",
+  "item.appliedcraftedenergistics.slot_control_card": "逐槽控制卡",
+  "item.appliedcraftedenergistics.slot_control_card.desc": "解锁气体 ME 接口九个槽位各自的输入 / 输出 / 双向 / 关闭控制。",
+  "item.appliedcraftedenergistics.safety_valve_card": "安全阀卡",
+  "item.appliedcraftedenergistics.safety_valve_card.desc": "当气体 ME 接口压力危险时，通过机械动力：机巧新生的真实气体释放机制自动泄压。",
+  "gui.appliedcraftedenergistics.slot_mode.input": "输入",
+  "gui.appliedcraftedenergistics.slot_mode.output": "输出",
+  "gui.appliedcraftedenergistics.slot_mode.both": "双向",
+  "gui.appliedcraftedenergistics.slot_mode.off": "关闭"
 }
