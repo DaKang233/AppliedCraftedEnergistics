@@ -20,7 +20,8 @@ and the final shipping jar is installed in the real instance.
 | 9 | R6 re-verify (GUI slot backgrounds) — 183-mod pack | **`23E6E169…` (122,972 B)** | `run-instance/` (183 mods) | 183 | **PASS** | 94.3 s |
 | 10 | R7 re-verify (licence/notice files packaged) — 183-mod pack | **`A32324D7…` (139,124 B)** | `run-instance/` (183 mods) | 183 | **PASS** | ~102 s |
 | 11 | R8 re-verify (zh_cn name → 应用机巧能源) — 183-mod pack |
-| 12 | **R9 re-verify (0.1.1: native interface textures + 1024 logo) — 183-mod pack, CURRENT SHIPPED sha** | **`83E699CA…` (845,506 B)** | `run-instance/` (183 mods) | 183 | **PASS** | 98.3 s | **`416B8A64…` (139,122 B)** | `run-instance/` (183 mods) | 183 | **PASS** | ~102 s |
+| 12 | R9 re-verify (0.1.1: native interface textures + 1024 logo) — 183-mod pack |
+| 13 | **R9b re-verify (0.1.1 rebuilt with the 256-pixel logo) — 183-mod pack, CURRENT SHIPPED sha** | **`3AB56065…` (200,868 B)** | `run-instance/` (183 mods) | 183 | **PASS** | 124.4 s | **`83E699CA…` (845,506 B)** | `run-instance/` (183 mods) | 183 | **PASS** | 98.3 s | **`416B8A64…` (139,122 B)** | `run-instance/` (183 mods) | 183 | **PASS** | ~102 s |
 
 Run 2 was executed on the real instance with the then-current jar; the jar of run 3
 (`F07F3B…`) differs from it by exactly the removal of one duplicated `lang` key
@@ -84,7 +85,7 @@ and lang load without error.
 
 **Run 10 packages the licence paperwork (R7).** LICENSE (LGPL-3.0 text) and THIRD_PARTY_NOTICES.md (AE2 API MIT / AE2 code LGPL-3.0 / AE2 textures CC BY-NC-SA 3.0 with the derived-file list, plus CCB MIT and Applied Pneumatics attribution) now ship inside the jar, and all Java sources carry an SPDX-License-Identifier: LGPL-3.0-or-later header. Boot evidence (docs/run-logs/client-10.*): Applied Crafted Energistics 0.1.0 in the Mod List, both runtime INFO lines, Sound engine started (~102 s), no error or crash. This is a packaging change only; no gameplay code changed.
 
-**Run 12 is the 0.1.1 artwork refresh (R9).** The ME Gas Interface now uses three byte-identical native 16×16 textures (one per face alias, AE2's interface layout with its three blue shades remapped to the gas teal ramp), and icon.png is the 1024-pixel transparent logo export (the artwork master and the other exports live in docs/branding/). Boot evidence (docs/run-logs/client-13.*; an earlier attempt was killed while still in mod loading, so its log is not used): Applied Crafted Energistics 0.1.1 in the Mod List, both runtime INFO lines, Sound engine started, main menu at 98.3 s, no ERROR/WARN attributable to the mod, no crash report. The jar grew to 845,506 B because it now carries the 1024-pixel logo. Visual acceptance of the new block art in-game is still manual.
+**Run 12 is the 0.1.1 artwork refresh (R9).** The ME Gas Interface now uses three byte-identical native 16×16 textures (one per face alias, AE2's interface layout with its three blue shades remapped to the gas teal ramp), and icon.png is the 1024-pixel transparent logo export (the artwork master and the other exports live in docs/branding/). Boot evidence (docs/run-logs/client-13.*; an earlier attempt was killed while still in mod loading, so its log is not used): Applied Crafted Energistics 0.1.1 in the Mod List, both runtime INFO lines, Sound engine started, main menu at 98.3 s, no ERROR/WARN attributable to the mod, no crash report. The jar grew to 845,506 B because it now carries the 1024-pixel logo. Visual acceptance of the new block art in-game is still manual. Run 13 is the same 0.1.1 rebuilt with the **256-pixel logo** instead of the 1024 export (icon swap only, 200,868 B): the same checks pass, main menu at 124.4 s, no error or crash (`docs/run-logs/client-14.*`).
 **Run 11 is the zh_cn name revision (R8).** The Chinese display name changed from 应用匠心能源 to **应用机巧能源** (matching CCB's official Chinese name 机械动力：机巧新生); only lang/zh_cn.json, the zh GuideME index page and the Chinese docs changed. Boot evidence (docs/run-logs/client-11.*): both runtime INFO lines, Sound engine started (~102 s), no error or crash. The jar still contains exactly one 应用机巧能源 title in both the creative-tab and GUI lang keys (checked directly inside the jar). The R6 jar also carries the redrawn 16×16 upgrade-card textures (verified: the PNG hashes inside the jar equal the ones in `src/main/resources`, and running `tools/gen_card_textures.py` reproduces them byte-identically).
 
 ---
@@ -94,15 +95,15 @@ and lang load without error.
 | | |
 |---|---|
 | Path | `build/libs/appliedcraftedenergistics-1.21.1-neoforge-0.1.1.jar` |
-| Size / mtime | **845,506 B**, 2026-11-20 22:18:33 |
-| SHA-256 | **`83E699CA368DF7C608DDD97392E8DC3E3DB8F44265E020A5B5A1805ED3CCE661`** |
+| Size / mtime | **200,868 B**, 2026-11-20 22:33:12 |
+| SHA-256 | **`3AB56065547E77A5D739D3229EBED77981EA931D64897AC294D7CE868DAD43EA`** |
 | Jar entries | 137 |
 | Mod id / version | `appliedcraftedenergistics` / `0.1.0` (`META-INF/neoforge.mods.toml`) |
 | Immutable snapshot | [`docs/artifacts/appliedcraftedenergistics-0.1.1.jar`](artifacts/appliedcraftedenergistics-0.1.1.jar) — same sha256 |
 | Installed copy | `<real instance>/mods/appliedcraftedenergistics-1.21.1-neoforge-0.1.1.jar` — same sha256, **left in place** |
 
-The artifact was rebuilt thirteen times during verification (48,662 → 85,923 → 86,517 →
-86,556 → 86,552 → 88,521 → 105,724 → 107,764 → 122,204 → 122,972 → 139,124 → 139,122 → 845,506 bytes). Because `build/libs` is a moving target, the launched
+The artifact was rebuilt fourteen times during verification (48,662 → 85,923 → 86,517 →
+86,556 → 86,552 → 88,521 → 105,724 → 107,764 → 122,204 → 122,972 → 139,124 → 139,122 → 845,506 → 200,868 bytes). Because `build/libs` is a moving target, the launched
 bytes were pinned by copying the jar to
 `docs/artifacts/appliedcraftedenergistics-0.1.1.jar` and by the installed instance
 copy; every sha256 below was computed from the file that was actually launched.
@@ -263,7 +264,7 @@ equivalent acceptance markers used here are therefore:
 
 | Criterion | Result | Evidence |
 |---|---|---|
-| Jar is the sha-pinned build | **PASS** | `83E699CA…`, 845,506 B, 137 entries; snapshot + installed copy match |
+| Jar is the sha-pinned build | **PASS** | `3AB56065…`, 200,868 B, 137 entries; snapshot + installed copy match |
 | Harness launches exactly like the user's launcher | **PASS** | command matches PCL `LatestLaunch.bat`; 107-entry classpath identical to PCL's |
 | Full pack (180 jars) accepted; mod discovered | **PASS** | `Found mod file "appliedcraftedenergistics-…"`; `Applied Crafted Energistics 0.1.0` in Mod List |
 | Mod initialises at runtime (registers, not just loads) | **PASS** | `gas storage channel appliedcraftedenergistics:gas registered`; CCB ME-Interface line |
@@ -272,8 +273,8 @@ equivalent acceptance markers used here are therefore:
 | No errors/warnings attributable to the mod | **PASS** | 0 matching ERROR/WARN (the two JarJar lines that match the string are unrelated; they match the project path `…\AppliedCraftedEnergistics\run-instance\mods`) |
 | No AE2 key-type collisions from the pack's AE2 addons | **PASS** | no key-type/registry/duplicate-key diagnostics in the log |
 | No crash | **PASS** | no `crash-reports/`, no `hs_err_pid*` in either game dir |
-| Real instance runs the shipped jar | **PASS (transfer + install)** | PASS 2 on real instance with `BF6E…`; the current `83E699CA…` differs by the art revision, the LED colour handler, the Gas P2P Tunnel + guide pages, the ACE rename, the cell upgrade cards, the GUI slot-background fix, the packaged LGPL/third-party notices, the 应用机巧能源 name revision and the 0.1.1 interface-texture/logo refresh, all proven in runs 4/5/6, 8-12, and is installed there |
-| Jar installed and left in the real instance | **PASS** | `<instance>/mods/appliedcraftedenergistics-1.21.1-neoforge-0.1.1.jar`, sha `83E699CA…`, 183 jars, exactly one appliedcraftedenergistics jar |
+| Real instance runs the shipped jar | **PASS (transfer + install)** | PASS 2 on real instance with `BF6E…`; the current `3AB56065…` differs by the art revision, the LED colour handler, the Gas P2P Tunnel + guide pages, the ACE rename, the cell upgrade cards, the GUI slot-background fix, the packaged LGPL/third-party notices, the 应用机巧能源 name revision and the 0.1.1 interface-texture/logo refresh, all proven in runs 4/5/6, 8-12, and is installed there |
+| Jar installed and left in the real instance | **PASS** | `<instance>/mods/appliedcraftedenergistics-1.21.1-neoforge-0.1.1.jar`, sha `3AB56065…`, 183 jars, exactly one appliedcraftedenergistics jar |
 
 ---
 

@@ -6,9 +6,9 @@ purple-gray trim and a muted teal/cyan inset. There is no special front, top or 
 
 | File | Size | Use |
 |---|---|---|
-| `ace-logo-1024.png` | 1024×1024, transparent | Encyclopedia entry and full-resolution square logo; installed as `src/main/resources/icon.png` (the mod logo, NeoForge scales it) |
+| `ace-logo-1024.png` | 1024×1024, transparent | Encyclopedia entry and full-resolution square logo |
 | `ace-logo-512.png` | 512×512, transparent | General mod listings and README |
-| `ace-logo-256.png` | 256×256, transparent | Small mod-list icon preview |
+| `ace-logo-256.png` | 256×256, transparent | Mod-list icon; installed as `src/main/resources/icon.png` |
 | `ace-logo-64.png` | 64×64, transparent | Small-icon preview |
 | `ace-logo-dark.png` | 1024×1024, opaque | Square logo on a dark background |
 | `ace-logo-banner.png` | 1600×640, opaque | English title and Chinese name for an article header |
@@ -40,7 +40,7 @@ pwsh -File tools/prepare_interface_art.ps1
 
 The script reads the supplied `libs/appliedenergistics2-19.2.20.jar` and the retained logo master.
 It uses Windows System.Drawing, makes no network requests, preserves logo transparency and fits
-the visible cube within a consistent safe margin. The NeoForge `logoFile="icon.png"` registration uses the 1024-pixel logo export.
+the visible cube within a consistent safe margin. The NeoForge `logoFile="icon.png"` registration uses the 256-pixel logo export (smaller jar; 1024 remains for articles).
 
 The logo master was created with built-in image generation using the exact block projection and
 native AE2 textures as references. The game texture itself is a deterministic recolour, not an

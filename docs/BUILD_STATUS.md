@@ -116,7 +116,8 @@ and thereby dodges the TLS problem in §5. Once artifacts are cached it can be d
 
 | Built | Size | Entries | sha256 | Contents / note |
 |---|---|---|---|---|
-| 2026-11-20 22:18:33 | 845,506 B | 137 | `83E699CA368DF7C608DDD97392E8DC3E3DB8F44265E020A5B5A1805ED3CCE661` | **CURRENT / FINAL (0.1.1 / R9)** — artwork refresh: native 16×16 ME Gas Interface textures (front/side/top aliases byte-identical, AE2 interface layout recoloured to the gas teal ramp), 1024-pixel transparent logo installed as `icon.png`, branding exports in `docs/branding/`, version bumped to 0.1.1, harness now picks the newest built jar. Verified in run 12 |
+| 2026-11-20 22:33:12 | 200,868 B | 137 | `3AB56065547E77A5D739D3229EBED77981EA931D64897AC294D7CE868DAD43EA` | **CURRENT / FINAL (0.1.1 / R9b)** — artwork refresh with the **256-pixel logo** as `icon.png` (smaller jar): native 16×16 ME Gas Interface textures (front/side/top aliases byte-identical, AE2 interface layout recoloured to the gas teal ramp), branding exports in `docs/branding/`, harness picks the newest built jar. Verified in run 13 |
+| 2026-11-20 22:18:33 | 845,506 B | 137 | `83E699CA368DF7C608DDD97392E8DC3E3DB8F44265E020A5B5A1805ED3CCE661` | superseded — same 0.1.1 art refresh with the 1024-pixel logo (run 12) |
 | 2026-11-20 04:43:30 | 139,122 B | 137 | `416B8A64F92E6C178BA3CF38FA101B6BA8BAD7F8B9504253AEE0F447D05B6BD3` | superseded (R8) — zh_cn display name 应用匠心能源 → **应用机巧能源** (CCB official name 机械动力：机巧新生); `lang/zh_cn.json` + zh GuideME index + Chinese docs only. Verified in run 11 |
 | 2026-11-20 04:36:14 | 139,124 B | 137 | `A32324D74BBE98D14CAEF8BD6CB6990FD4C5111B182BC5D7EB409241E914A0EE` | superseded (R7) — licence compliance: `LICENSE` (LGPL-3.0) + `THIRD_PARTY_NOTICES.md` packaged in the jar (AE2 API MIT / AE2 code LGPL-3.0 / AE2 textures CC BY-NC-SA 3.0 + derived-file list, CCB MIT, Applied Pneumatics attribution), `SPDX-License-Identifier: LGPL-3.0-or-later` on all Java sources. No gameplay changes. Verified in run 10 |
 | 2026-11-20 04:16:58 | 122,972 B | 135 | `23E6E169803C57EFB03CF65501294B01731B276CBF43591D4AC2B92D73A135A1` | superseded (R6) — ME Gas Interface GUI fix: `GasInterfaceScreen.drawBG` draws AE2's shared `Icon.SLOT_BACKGROUND` sprite behind player-inventory/hotbar slots (the procedural `generatedBackground` panel has no baked slot art). No textures touched. Also carries the **redrawn 16×16 upgrade-card textures** (AE2 advanced-card cyan connector + per-card engravings; reproducible from `tools/gen_card_textures.py`; jar hashes match the source PNGs). Verified in run 9 |
@@ -178,17 +179,18 @@ full write-up, raw evidence extracts, harness rationale and cleanup audit live i
 | 9 | R6 re-verify (GUI slot backgrounds) — 183-mod pack | **`23E6E169…` (122,972 B)** | `run-instance/` (183 mods) | 183 | **PASS** | 94.3 s |
 | 10 | R7 re-verify (licence/notice files) — 183-mod pack | **`A32324D7…` (139,124 B)** | `run-instance/` (183 mods) | 183 | **PASS** | ~102 s |
 | 11 | R8 re-verify (zh_cn name) — 183-mod pack | **`416B8A64…` (139,122 B)** | `run-instance/` (183 mods) | 183 | **PASS** | ~102 s |
-| 12 | **R9 re-verify (0.1.1 interface-texture/logo refresh) — 183-mod pack, CURRENT SHIPPED sha** | **`83E699CA…` (845,506 B)** | `run-instance/` (183 mods) | 183 | **PASS** | 98.3 s |
+| 12 | R9 re-verify (0.1.1 interface-texture/logo refresh, 1024 logo) — 183-mod pack |
+| 13 | **R9b re-verify (0.1.1 rebuilt with the 256-pixel logo) — 183-mod pack, CURRENT SHIPPED sha** | **`3AB56065…` (200,868 B)** | `run-instance/` (183 mods) | 183 | **PASS** | 124.4 s | **`83E699CA…` (845,506 B)** | `run-instance/` (183 mods) | 183 | **PASS** | 98.3 s |
 
 Those sha256 values are exactly the jars in the artifact table above, so each verdict is tied to a
 specific artifact rather than "whatever was in `build/libs` at the time". PASS 2 ran on the real
-instance with the then-current `BF6E0908…` jar. Runs 4, 5, 6, 8, 9, 10, 11 and 12 re-prove the current shipped sha
+instance with the then-current `BF6E0908…` jar. Runs 4, 5, 6, 8, 9, 10, 11, 12 and 13 re-prove the current shipped sha
 end-to-end (runs 4-6 on the identical 180-mod set; runs 7-8 on the 183-mod set that adds Applied Pneumatics + PneumaticCraft): run 4 = the AE2-19.2-style cell art revision, run 5 = the Gas P2P Tunnel + GuideME pages, run 8 = the cell upgrade cards; both were built by the Lead because the build-engineer teammate's
 turns failed, and both were launched on the `run-instance` copy because the user's own client was
 running on the live instance.
 
 **Shipping state:** the real instance's `mods/` folder contains **exactly one** appliedcraftedenergistics
-jar — `appliedcraftedenergistics-1.21.1-neoforge-0.1.1.jar`, sha `83E699CA…`, 845,506 B — and it was **left
+jar — `appliedcraftedenergistics-1.21.1-neoforge-0.1.1.jar`, sha `3AB56065…`, 200,868 B — and it was **left
 installed** for the user (the old-named `appliedaerostatics-*.jar` and the stale
 `config/appliedaerostatics-common.toml` were removed). `docs/artifacts/appliedcraftedenergistics-0.1.1.jar`
 is an immutable copy of the identical bytes (same sha256), so `build/libs` can never be mistaken for the
