@@ -115,10 +115,13 @@ dependencies {
     // can reference the Flywheel / Ponder / Registrate APIs. NOT on the runtime
     // classpath: JarJar already provides exactly one copy at runtime, and a
     // second copy would be a duplicate-mod crash.
+    // JEI is optional at runtime: the ghost-drag marking handler is only loaded when JEI is
+    // present, so JEI is compile-only here (the target pack already ships it).
     compileOnly files(
             "libs/flywheel-neoforge-1.21.1-1.0.6.jar",
             "libs/ponder-neoforge-1.0.82+mc1.21.1.jar",
-            "libs/Registrate-MC1.21-1.3.0+67.jar"
+            "libs/Registrate-MC1.21-1.3.0+67.jar",
+            "libs/jei-1.21.1-neoforge-19.57.0.447.jar"
     )
 
     // --- Create: Crafted Beginning ------------------------------------------

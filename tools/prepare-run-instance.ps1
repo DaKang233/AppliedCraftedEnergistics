@@ -115,13 +115,18 @@ foreach ($name in @('config', 'defaultconfigs', 'kubejs')) {
 }
 
 # --- verification -----------------------------------------------------------
-$srcJars = @(Get-ChildItem -LiteralPath $srcMods -Filter *.jar -File)
+# The installed copy of this mod is intentionally never hardlinked (a different
+# version would be loaded next to the fresh build), so it is excluded from pack
+# byte-for-byte comparisons as well.
+$srcJars = @(Get-ChildItem -LiteralPath $srcMods -Filter *.jar -File |
+        Where-Object { $_.Name -notlike 'appliedcraftedenergistics-*.jar' })
 $dstJars = @(Get-ChildItem -LiteralPath $dstMods -Filter *.jar -File)
+$dstPackJars = @($dstJars | Where-Object { $_.Name -notlike 'appliedcraftedenergistics-*.jar' })
 
-$nameMismatch = Compare-Object ($srcJars.Name | Sort-Object) ($dstJars.Name | Sort-Object) |
+$nameMismatch = Compare-Object ($srcJars.Name | Sort-Object) ($dstPackJars.Name | Sort-Object) |
     Where-Object { $_.InputObject -ne (Split-Path -Leaf $ModJar) }
 $sizeMismatch = foreach ($s in $srcJars) {
-    $d = $dstJars | Where-Object Name -eq $s.Name
+    $d = $dstPackJars | Where-Object Name -eq $s.Name
     if ($null -eq $d -or $d.Length -ne $s.Length) { "{0}: src={1} dst={2}" -f $s.Name, $s.Length, ($d.Length) }
 }
 

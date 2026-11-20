@@ -342,3 +342,9 @@ or an empty log plus a non-zero java exit.
 
 未覆盖：由于桌面自动化无法向游戏窗口注入键盘事件，本轮未能通过命令完成气体标记/管网收发/安全阀排气；
 这些仍需人工或后续自动化验证。
+### 0.2.1 JEI 集成验证（2026-11-21）
+
+- 0.2.1 客户端（含 JEI 19.57）进入世界后日志出现：
+  `JEI integration: gas ingredients can be dragged onto the gas ME Interface's config slots`
+- 说明 `AceJeiPlugin.registerGuiHandlers` 已被 JEI 调用、ghost 拖拽 handler 注册成功；
+- 该行在进入世界后出现（JEI 在客户端运行期加载插件），主菜单阶段不会打印。

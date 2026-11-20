@@ -20,8 +20,10 @@ import net.ty.createcraftedbeginning.api.canister.CanisterCapabilities;
 import net.ty.createcraftedbeginning.api.gas.Gas;
 import net.ty.createcraftedbeginning.api.gas.GasStack;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.ty.createcraftedbeginning.content.airtights.gasfilter.VirtualGasItems;
 
 /**
  * Menu of the gas ME Interface: nine config slots (target gas + amount), nine cache slots and the six
@@ -37,6 +39,7 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
     private static final String ACTION_SET_PRESSURE = "setGasPressure";
     private static final String ACTION_CYCLE_MODE = "cycleGasMode";
     private static final String ACTION_MARK_SLOT = "markGasSlot";
+    private static final String ACTION_MARK_GAS_ID = "markGasSlotId";
     private static final String ACTION_ADJUST_AMOUNT = "adjustGasAmount";
 
     // Packed per-slot settings: mode (2 bit) | explicit (1 bit) << 2 | effective atm (5 bit) << 3.
@@ -75,6 +78,7 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
         registerClientAction(ACTION_SET_PRESSURE, String.class, this::onSetPressure);
         registerClientAction(ACTION_CYCLE_MODE, String.class, this::onCycleMode);
         registerClientAction(ACTION_MARK_SLOT, String.class, this::onMarkSlot);
+        registerClientAction(ACTION_MARK_GAS_ID, String.class, this::onMarkGasId);
         registerClientAction(ACTION_ADJUST_AMOUNT, String.class, this::onAdjustAmount);
     }
 
@@ -151,6 +155,11 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
 
     public void sendMarkSlot(int slot) {
         sendClientAction(ACTION_MARK_SLOT, Integer.toString(slot));
+    }
+
+    /** Ghost-drag marking: the client passes the gas id from the JEI ingredient. */
+    public void sendMarkGasId(int slot, String gasId) {
+        sendClientAction(ACTION_MARK_GAS_ID, slot + ":" + gasId);
     }
 
     public void sendAdjustAmount(int slot, long delta) {
@@ -252,11 +261,22 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
                     }
                 }
             }
+            if (gas == null) {
+                // CCB's own virtual gas item (also what JEI hands out for gas ingredients).
+                GasStack virtualGas = VirtualGasItems.readGasSample(held);
+                if (!virtualGas.isEmpty()) {
+                    gas = virtualGas.getGasType();
+                }
+            }
         }
-        if (gas == null || gas.isEmpty()) {
+        applyGasMark(slot, gas);
+    }
+
+    /** Server-side validation and application of a gas mark (amount is preserved when unchanged). */
+    private void applyGasMark(int slot, Gas gas) {
+        if (isClientSide() || gas == null || gas.isEmpty()) {
             return;
         }
-
         var config = getHost().getLogic().getConfig();
         var current = config.getStack(slot);
         long amount = GasInterfaceLogic.MAX_SLOT_AMOUNT;
@@ -266,6 +286,27 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
         config.setStack(slot, new GenericStack(new GasKey(gas), amount));
         getHost().setChanged();
         broadcastChanges();
+    }
+
+    /** Ghost-drag from JEI: the payload is {@code slot:gasId}. */
+    private void onMarkGasId(String payload) {
+        if (isClientSide()) {
+            return;
+        }
+        int separator = payload.indexOf(':');
+        if (separator <= 0) {
+            return;
+        }
+        int slot = parseInt(payload.substring(0, separator), -1);
+        var id = ResourceLocation.tryParse(payload.substring(separator + 1));
+        if (slot < 0 || slot >= GasInterfaceLogic.SLOTS || id == null) {
+            return;
+        }
+        var gas = Gas.findById(id);
+        if (gas == null) {
+            return;
+        }
+        applyGasMark(slot, gas);
     }
 
     private static int parseInt(String value, int fallback) {

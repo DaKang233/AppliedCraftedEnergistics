@@ -137,4 +137,4 @@ if (result.released()) { /* 才提交 drain */ }
 | 气体样本物品 + `gas_id` 组件、气体容器右键标记 | 已实现 |
 | GUI：中键模式、右键标记、滚轮数量、Shift+滚轮压力、悬停 tooltip | 已实现，游戏内打开验证通过（截图 docs/artifacts/ace-0.2.0-interface-gui.png） |
 | 输入/输出总线逐部件压力 | 未实现（按确认决策后置） |
-| JEI 拖拽标记 | 未实现（样本/容器/AE2 包裹物品可用） |
+| JEI 拖拽标记 | 已实现（`compat/jei/AceJeiPlugin`，接受 CCB 气体 ingredient 与虚拟气体物品） |
