@@ -331,3 +331,14 @@ or an empty log plus a non-zero java exit.
   (`Applied Crafted Energistics 0.2.0` in the mod list, gas key type registered, no ACE errors).
 - 启动验证覆盖：注册、数据组件、菜单类型、两张新卡、气体样本物品。
 - 未覆盖（需人工/后续自动化）：放置接口并打开 GUI、CCB 管网实际收发、安全阀排气效果、逐槽模式卡行为。
+### 0.2.0 游戏内 GUI 验证（2026-11-21）
+
+在 182 模组整合包的 `run-instance` 中创建新世界，用临时 KubeJS 脚本放置接口：
+
+- 日志确认：`[ACE test] placed interface at 14 67 -49 for Dev`；
+- 玩家面向接口右键后 **ME Gas Interface GUI 正常打开**：标题、两排各 9 个配置/缓存槽、右侧 6 个升级槽、玩家背包均正常渲染；
+- 打开 GUI 后日志中没有任何 `appliedcraftedenergistics` 异常（无 `IllegalStateException` / sync id 冲突）；
+- 截图：`docs/artifacts/ace-0.2.0-interface-gui.png`。
+
+未覆盖：由于桌面自动化无法向游戏窗口注入键盘事件，本轮未能通过命令完成气体标记/管网收发/安全阀排气；
+这些仍需人工或后续自动化验证。
