@@ -55,5 +55,11 @@
   "gui.appliedcraftedenergistics.slot_mode.input": "Input",
   "gui.appliedcraftedenergistics.slot_mode.output": "Output",
   "gui.appliedcraftedenergistics.slot_mode.both": "Both",
-  "gui.appliedcraftedenergistics.slot_mode.off": "Off"
+  "gui.appliedcraftedenergistics.slot_mode.off": "Off",
+  "item.appliedcraftedenergistics.gas_sample": "Gas Sample",
+  "item.appliedcraftedenergistics.gas_sample.desc": "Mark a gas config slot of the ME Gas Interface by right-clicking the slot with this sample. Obtain samples from JEI or the creative tab.",
+  "gui.appliedcraftedenergistics.slot.target": "Target: %s GU",
+  "gui.appliedcraftedenergistics.slot.pressure": "Target pressure: %s atm",
+  "gui.appliedcraftedenergistics.slot.pressure_default": "Default supply pressure (not configured)",
+  "gui.appliedcraftedenergistics.slot.mode": "Mode: %s"
 }

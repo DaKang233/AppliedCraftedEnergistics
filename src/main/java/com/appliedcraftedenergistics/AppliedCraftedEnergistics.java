@@ -4,6 +4,7 @@
 package com.appliedcraftedenergistics;
 
 import com.appliedcraftedenergistics.init.ACEItems;
+import com.appliedcraftedenergistics.init.ACEDataComponents;
 import com.appliedcraftedenergistics.init.ACECards;
 import com.appliedcraftedenergistics.init.ACECreativeTabs;
 import com.appliedcraftedenergistics.init.ACEBlocks;
@@ -50,6 +51,7 @@ public final class AppliedCraftedEnergistics {
         modBus.addListener(this::commonSetup);
 
         ACEItems.register(modBus);
+        ACEDataComponents.register(modBus);
         ACECards.register(modBus);
         ACECreativeTabs.register(modBus);
 

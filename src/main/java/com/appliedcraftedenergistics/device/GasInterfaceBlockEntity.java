@@ -17,6 +17,7 @@ import com.appliedcraftedenergistics.Config;
 import com.appliedcraftedenergistics.device.gasinterface.GasInterfaceLogic;
 import com.appliedcraftedenergistics.device.gasinterface.GasInterfaceSettings;
 import com.appliedcraftedenergistics.device.gasinterface.GasInterfaceStorageView;
+import com.appliedcraftedenergistics.device.gasinterface.GasSafetyValve;
 import com.appliedcraftedenergistics.init.ACEBlockEntities;
 import com.appliedcraftedenergistics.init.ACEBlocks;
 
@@ -102,6 +103,7 @@ public class GasInterfaceBlockEntity extends AENetworkedBlockEntity implements I
             return;
         }
         logic.tick(grid, actionSource);
+        GasSafetyValve.tick(this, level, getBlockPos());
     }
 
     // ---------------------------------------------------------------------------------------------

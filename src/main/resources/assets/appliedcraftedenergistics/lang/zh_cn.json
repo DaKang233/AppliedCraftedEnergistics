@@ -55,5 +55,11 @@
   "gui.appliedcraftedenergistics.slot_mode.input": "输入",
   "gui.appliedcraftedenergistics.slot_mode.output": "输出",
   "gui.appliedcraftedenergistics.slot_mode.both": "双向",
-  "gui.appliedcraftedenergistics.slot_mode.off": "关闭"
+  "gui.appliedcraftedenergistics.slot_mode.off": "关闭",
+  "item.appliedcraftedenergistics.gas_sample": "气体样本",
+  "item.appliedcraftedenergistics.gas_sample.desc": "用样本右键气体配置槽，即可把该槽标记为这种气体。可通过 JEI 或创造模式物品栏获得样本。",
+  "gui.appliedcraftedenergistics.slot.target": "目标数量：%s GU",
+  "gui.appliedcraftedenergistics.slot.pressure": "目标压力：%s atm",
+  "gui.appliedcraftedenergistics.slot.pressure_default": "默认供给压力（未显式配置）",
+  "gui.appliedcraftedenergistics.slot.mode": "模式：%s"
 }

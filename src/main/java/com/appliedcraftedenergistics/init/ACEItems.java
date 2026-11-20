@@ -6,6 +6,7 @@ package com.appliedcraftedenergistics.init;
 import appeng.items.storage.StorageTier;
 import com.appliedcraftedenergistics.AppliedCraftedEnergistics;
 import com.appliedcraftedenergistics.cell.GasStorageCellItem;
+import com.appliedcraftedenergistics.item.GasSampleItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -21,6 +22,10 @@ public final class ACEItems {
     public static final DeferredItem<GasStorageCellItem> GAS_CELL_16K = cell("gas_cell_16k", StorageTier.SIZE_16K);
     public static final DeferredItem<GasStorageCellItem> GAS_CELL_64K = cell("gas_cell_64k", StorageTier.SIZE_64K);
     public static final DeferredItem<GasStorageCellItem> GAS_CELL_256K = cell("gas_cell_256k", StorageTier.SIZE_256K);
+
+    /** Marking item: carries a gas id, used to set gas config slots by hand. */
+    public static final DeferredItem<GasSampleItem> GAS_SAMPLE = ITEMS.registerItem("gas_sample",
+            properties -> new GasSampleItem(properties.stacksTo(1)));
 
     public static final List<DeferredItem<GasStorageCellItem>> GAS_CELLS = List.of(
             GAS_CELL_1K, GAS_CELL_4K, GAS_CELL_16K, GAS_CELL_64K, GAS_CELL_256K);

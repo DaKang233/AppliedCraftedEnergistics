@@ -172,7 +172,8 @@ public final class GasInterfaceStorageView implements GasStorageHandler {
 
         @Override
         public long getMaxPressurePa() {
-            return (long) logic.getSlotPressureAtm(slot) * GasAmounts.REFERENCE_PRESSURE_PA;
+            // Rated to CCB's hard ceiling so overfill can be detected and vented by the safety valve.
+            return GasAmounts.HARD_PRESSURE_PA;
         }
 
         @Override
