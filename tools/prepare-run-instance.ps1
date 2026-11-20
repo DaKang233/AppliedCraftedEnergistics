@@ -10,7 +10,7 @@
 .DESCRIPTION
     1. Creates <Dest>\mods and hardlinks every *.jar from the real instance's mods
        folder into it (same volume required; verified afterwards).
-    2. Copies the freshly built mod jar in as appliedcraftedenergistics-1.21.1-neoforge-0.1.0.jar.
+    2. Copies the freshly built mod jar in (the newest build/libs/appliedcraftedenergistics-*.jar).
     3. Copies the pack's config/, defaultconfigs/ and kubejs/ so the run sees the
        same configuration as the user (copies, never hardlinks: the game rewrites
        config on startup and a hardlink would write through to the real instance).
@@ -53,7 +53,9 @@ if (-not $Dest) {
     $Dest = Join-Path $repoRoot 'run-instance'
 }
 if (-not $ModJar) {
-    $ModJar = Join-Path $repoRoot 'build\libs\appliedcraftedenergistics-1.21.1-neoforge-0.1.0.jar'
+    $builtJars = @(Get-ChildItem (Join-Path $repoRoot 'build\libs') -Filter 'appliedcraftedenergistics-*.jar' -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending)
+    if ($builtJars.Count -eq 0) { throw 'no built jar in build\libs; run gradlew build first' }
+    $ModJar = $builtJars[0].FullName
 }
 
 $instanceDir = Join-Path (Join-Path $MinecraftRoot 'versions') $VersionName
