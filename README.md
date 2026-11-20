@@ -9,8 +9,8 @@
 ## 目的
 
 - 气体可存进 ME 网络：气体存储元件 1k / 4k / 16k / 64k / 256k（**1 byte = 1,000 GU**）；
-- 与 CCB 的储罐、管路互通：ME 气体接口、气体 P2P 隧道，以及 AE2 原生的输入/输出/存储总线、ME 接口、样板供应器；
-- 气体元件支持 AE2 原生升级卡（反相 / 均分 / 溢出销毁）和四张气体卡（高压 / 扩容 / 多类型 / 安全阀）。
+- 与 CCB 的储罐、管路互通：ME 气体接口（9 组配置/缓存槽，逐槽目标数量、目标压力与传输模式）、气体 P2P 隧道，以及 AE2 原生的输入/输出/存储总线、ME 接口、样板供应器；
+- 气体元件支持 AE2 原生升级卡（反相 / 均分 / 溢出销毁）和四张气体卡（高压 / 扩容 / 多类型 / 安全阀）；接口支持逐槽控制卡与安全阀卡（经 CCB 真实释放泄压）。
 
 ## 前置
 
@@ -28,12 +28,11 @@
 
 | 键 | 默认 | 说明 |
 |---|---|---|
-| `gas_interface.bufferVolumeLiters` | 8000 | ME 气体接口缓冲罐体积（升） |
-| `gas_interface.supplyPressureKpa` | 100 | 接口供给压力（kPa） |
-| `gas_interface.transferRate` | 1000 | 每 tick 缓冲罐 ↔ 网络搬运上限（GU/t） |
-| `gas_interface.energyPerKiloGasUnit` | 1.0 | 每 kGU 搬运耗电（AE） |
 | `gas_interface.idlePower` | 8.0 | 接口待机耗电（AE/t） |
 | `gas_p2p.bufferVolumeLiters` | 4000 | 气体 P2P 每个面的缓冲体积（升，承压 16 atm） |
+
+接口的逐槽目标数量、目标压力与传输模式在 GUI 中设置；0.1.x 的 `bufferVolumeLiters` / `supplyPressureKpa` /
+`transferRate` / `energyPerKiloGasUnit` 已废弃（旧配置项会被加载器忽略）。
 
 ## 构建
 
@@ -41,7 +40,7 @@
 gradlew.bat build
 ```
 
-产物：`build/libs/appliedcraftedenergistics-1.21.1-neoforge-0.1.1.jar`。
+产物：`build/libs/appliedcraftedenergistics-1.21.1-neoforge-0.2.0.jar`。
 本地测试用的路径配置见 `env.example`（复制为 `.env` 后填写）。
 
 ## 许可证

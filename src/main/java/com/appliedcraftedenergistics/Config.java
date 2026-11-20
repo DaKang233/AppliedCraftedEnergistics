@@ -12,6 +12,10 @@ import org.apache.commons.lang3.tuple.Pair;
  * <p>Note: the AE byte ↔ gas unit ratio is deliberately <b>not</b> configurable. It is a fixed part of
  * the mod's contract with existing worlds (see {@link com.appliedcraftedenergistics.gas.GasAmounts}); making it
  * configurable would silently rescale the contents of every existing storage cell.</p>
+ *
+ * <p>Since 0.2.0 the ME Gas Interface's cache slots are configured per slot in its GUI (target amount,
+ * target pressure, mode), so the old single-buffer settings are gone. Only the idle drain and the gas
+ * P2P vessel size remain configurable.</p>
  */
 public final class Config {
     public static final Common COMMON;
@@ -27,33 +31,11 @@ public final class Config {
     }
 
     public static final class Common {
-        // --- ME Gas Interface -------------------------------------------------------------------
-        public final ModConfigSpec.IntValue interfaceBufferVolumeLiters;
-        public final ModConfigSpec.IntValue interfaceSupplyPressureKpa;
-        public final ModConfigSpec.IntValue interfaceTransferRate;
-        public final ModConfigSpec.DoubleValue interfaceEnergyPerKiloGasUnit;
         public final ModConfigSpec.DoubleValue interfaceIdlePower;
         public final ModConfigSpec.IntValue gasP2pBufferVolumeLiters;
 
         Common(ModConfigSpec.Builder builder) {
             builder.comment("Settings for the ME Gas Interface").push("gas_interface");
-            this.interfaceBufferVolumeLiters = builder
-                    .comment("Volume of the interface's internal pressure buffer in liters.",
-                            "The buffer is a real vessel seen by Create: Crafted Beginning's gas pipes;",
-                            "gas can only be moved while it fits inside this volume at the allowed pressure.")
-                    .defineInRange("bufferVolumeLiters", 8_000, 100, 4_000_000);
-            this.interfaceSupplyPressureKpa = builder
-                    .comment("Pressure (in kPa) the interface fills its buffer to before pushing gas into",
-                            "the adjacent gas network. The CCB reference pressure is 100 kPa, the safe",
-                            "operating limit is 1,600 kPa and the hard physical limit is 2,400 kPa.")
-                    .defineInRange("supplyPressureKpa", 100, 0, 2_400);
-            this.interfaceTransferRate = builder
-                    .comment("Maximum gas moved per tick between the ME network and the buffer, in GU.",
-                            "1 kGU = 1 byte of AE storage.")
-                    .defineInRange("transferRate", 1_000, 1, 1_000_000);
-            this.interfaceEnergyPerKiloGasUnit = builder
-                    .comment("AE energy spent per kGU moved between the network and the buffer.")
-                    .defineInRange("energyPerKiloGasUnit", 1.0, 0.0, 1000.0);
             this.interfaceIdlePower = builder
                     .comment("Idle AE power drain of the interface, in AE/t.")
                     .defineInRange("idlePower", 8.0, 0.0, 10_000.0);

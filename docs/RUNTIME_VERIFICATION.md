@@ -323,3 +323,11 @@ Main-menu markers to poll in `<gameDir>/logs/latest.log`:
 `Applied Crafted Energistics 0.1.0 (appliedcraftedenergistics)`, `gas storage channel … registered`,
 `Sound engine started`; failure markers: `crash-reports/*.txt`, `hs_err_pid*.log`,
 or an empty log plus a non-zero java exit.
+## 0.2.0（2026-11-21）
+
+- Jar: `build/libs/appliedcraftedenergistics-1.21.1-neoforge-0.2.0.jar`
+  (213,915 bytes, SHA-256 `A24AC6BC13A4D47E5EB782CA9F5E72642A172EC9998199FF0BDA93F92676B4DB`)
+- Run instance: 182 jar source pack + the 0.2.0 jar, client reached the main menu
+  (`Applied Crafted Energistics 0.2.0` in the mod list, gas key type registered, no ACE errors).
+- 启动验证覆盖：注册、数据组件、菜单类型、两张新卡、气体样本物品。
+- 未覆盖（需人工/后续自动化）：放置接口并打开 GUI、CCB 管网实际收发、安全阀排气效果、逐槽模式卡行为。

@@ -83,6 +83,11 @@ public static extern bool CreateHardLink(string lpFileName, string lpExistingFil
 $linked = 0
 $linkFailed = [System.Collections.Generic.List[string]]::new()
 foreach ($f in Get-ChildItem -LiteralPath $srcMods -Filter *.jar -File) {
+    # Never hardlink an installed copy of this mod: a different version would be loaded
+    # alongside the freshly built jar and the duplicate mod id crashes the game.
+    if ($f.Name -like 'appliedcraftedenergistics-*.jar') {
+        continue
+    }
     $target = Join-Path $dstMods $f.Name
     if (Test-Path -LiteralPath $target) {
         $linked++

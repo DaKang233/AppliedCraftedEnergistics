@@ -124,3 +124,17 @@ if (result.released()) { /* 才提交 drain */ }
 3. 本期范围：**接口 + 标记 + 卡**；输入/输出总线的逐部件目标压力留到后续版本（本期只保证气体标记与数量）；
 4. 逻辑实现：AE2 `InterfaceLogic` 的升级槽字段私有且固定 1 个，无法扩展到 6，故按同构语义
    **自行实现 `GasInterfaceLogic`**（配置/缓存仍用 AE2 的 `ConfigInventory`，数量设置仍复用 AE2 的接口子菜单）。
+## 10. 实现状态（0.2.0）
+
+| 项 | 状态 |
+|---|---|
+| 9 配置 + 9 缓存槽、6 升级槽、逐槽目标数量/压力/模式 | 已实现 |
+| `volume = targetAmount / targetPressure` 的 CCB 容器视图 | 已实现（`GasInterfaceStorageView`） |
+| 逐槽控制卡（BOTH 默认，安装后 INPUT/OUTPUT/BOTH/OFF） | 已实现 |
+| 安全阀卡（20 atm，`GasReleaseService` 径向 OVERFLOW 真实泄压） | 已实现（只有释放成功才扣气） |
+| 旧 8 kL 缓冲罐气体迁入第一个空槽 | 已实现 |
+| 移除 `AeInterfaceGasCompat` | 已实现 |
+| 气体样本物品 + `gas_id` 组件、气体容器右键标记 | 已实现 |
+| GUI：中键模式、右键标记、滚轮数量、Shift+滚轮压力、悬停 tooltip | 已实现 |
+| 输入/输出总线逐部件压力 | 未实现（按确认决策后置） |
+| JEI 拖拽标记 | 未实现（样本/容器/AE2 包裹物品可用） |
