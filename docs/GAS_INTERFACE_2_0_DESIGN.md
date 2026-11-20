@@ -10,14 +10,16 @@ AE2 19.2 的 ME 接口实现可以直接复用（已核对源码）：
 | AE2 类 | 用途 | 复用方式 |
 |---|---|---|
 | `appeng.blockentity.misc.InterfaceBlockEntity` | 方块实体，`protected InterfaceLogic createLogic()` | 我们的 BE **继承**它，覆写 `createLogic()` 返回 `GasInterfaceLogic` |
-| `appeng.helpers.InterfaceLogic` | 9 个配置槽 + 9 个缓存槽、自动补货 `updatePlan/usePlan`、合成请求、优先级 | 继承，增加逐槽压力/模式数据与气体能力 |
+| `appeng.helpers.InterfaceLogic` | 9 个配置槽 + 9 个缓存槽、自动补货 `updatePlan/usePlan`、合成请求、优先级 | **不能直接继承**：`upgrades` 字段私有且固定 1 槽，无法扩到 6；改为按同构语义自行实现 `GasInterfaceLogic` |
 | `appeng.helpers.InterfaceLogicHost` | 宿主接口 | 由 BE 实现（或沿用父类实现并覆写 `openMenu`） |
 | `appeng.util.ConfigInventory` | 配置槽（`GenericStack`，数量即目标值）/ 缓存槽 | 直接使用；目标数量 = `GenericStack.amount`，上限由 `GenericSlotCapacities` 控制 |
 | `appeng.menu.implementations.InterfaceMenu` | 9 CONFIG + 9 STORAGE 槽位菜单 | 继承，新增逐槽压力/模式编辑动作 |
 | `appeng.client.gui.implementations.InterfaceScreen` | 接口 GUI | 继承，新增压力/模式控件；背景用自绘样式文档 |
 | `appeng.api.behaviors.GenericSlotCapacities` | 每种资源的槽位容量 | 已注册气体 64kGU；本接口每槽上限即 64kGU |
 
-结论：**库存管理、补货、合成请求、优先级、槽位配置交互全部复用 AE2**，我们只加三样东西：
+结论：槽位配置交互（`ConfigInventory` 与数量设置子菜单）可直接复用 AE2；
+**库存管理/补货逻辑需要自行实现**（6 个升级槽 + 逐槽压力/模式无法塞进 AE2 的 `InterfaceLogic`），
+算法按 AE2 的 `updatePlan/usePlan` 语义重写。
 逐槽压力、逐槽模式（升级卡解锁）、实现 `GasCapabilities.BLOCK` 的真实容器视图。
 
 ## 2. 槽位数据模型
@@ -115,8 +117,10 @@ if (result.released()) { /* 才提交 drain */ }
 | P4 | 气体样本物品、容器右键、JEI ghost、存储总线/元件工作台/发信器验证 | 标记系统完整 |
 | P5 | 移除 `AeInterfaceGasCompat`；迁移旧存档（旧缓冲罐气体转入第 1 槽 / 或保留旧 NBT 并忽略）；测试矩阵 | 0.2.0 |
 
-## 9. 待确认问题
+## 9. 已确认决策（2026-11-21）
 
-1. 压力模型是否采用 `体积 = 目标数量 / 目标压力`（推荐）？
-2. 旧存档迁移策略：旧接口缓冲罐里的气体是"丢弃警告"还是"转入第一个槽位"？
-3. 输入/输出总线的逐部件压力配置是否本期实现（需要自制部件/mixin，工作量最大）？
+1. 压力模型：**体积 = 目标数量 / 目标压力**（满目标时压力恰为目标值，不足时压力更低）；
+2. 旧存档：旧缓冲罐气体**转入第一个空槽**；9 槽都满时按丢失处理并写日志；
+3. 本期范围：**接口 + 标记 + 卡**；输入/输出总线的逐部件目标压力留到后续版本（本期只保证气体标记与数量）；
+4. 逻辑实现：AE2 `InterfaceLogic` 的升级槽字段私有且固定 1 个，无法扩展到 6，故按同构语义
+   **自行实现 `GasInterfaceLogic`**（配置/缓存仍用 AE2 的 `ConfigInventory`，数量设置仍复用 AE2 的接口子菜单）。
