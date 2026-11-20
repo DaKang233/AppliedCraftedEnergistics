@@ -7,8 +7,10 @@ purple-gray trim and a muted teal/cyan inset. There is no special front, top or 
 | File | Size | Use |
 |---|---|---|
 | `ace-logo-1024.png` | 1024×1024, transparent | Encyclopedia entry and full-resolution square logo |
+| `ace-logo-16x10.png` | 1600×1000, transparent | Text-free landscape logo; centred cube at its original pixel scale, with transparent margins |
 | `ace-logo-512.png` | 512×512, transparent | General mod listings and README |
 | `ace-logo-256.png` | 256×256, transparent | Mod-list icon; installed as `src/main/resources/icon.png` |
+| `ace-logo-400.png` | 400×400, transparent | CurseForge project avatar (the platform requires exactly 400×400) |
 | `ace-logo-64.png` | 64×64, transparent | Small-icon preview |
 | `ace-logo-dark.png` | 1024×1024, opaque | Square logo on a dark background |
 | `ace-logo-banner.png` | 1600×640, opaque | English title and Chinese name for an article header |

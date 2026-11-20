@@ -140,6 +140,24 @@ if (Test-Path -LiteralPath $logoSource) {
     } finally { $logo.Dispose() }
 
     $master=[System.Drawing.Bitmap]::new((Join-Path $brandDirectory 'ace-logo-1024.png'))
+    # Keep every logo pixel unchanged; add transparent horizontal margins.
+    # Only 12 already-transparent rows are omitted at the top and bottom.
+    $wide=[System.Drawing.Bitmap]::new(1600,1000,[System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+    try {
+        $sourceData=$master.LockBits([System.Drawing.Rectangle]::new(0,12,1024,1000),[System.Drawing.Imaging.ImageLockMode]::ReadOnly,[System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+        try {
+            $targetData=$wide.LockBits([System.Drawing.Rectangle]::new(288,0,1024,1000),[System.Drawing.Imaging.ImageLockMode]::WriteOnly,[System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
+            try {
+                $row=[byte[]]::new(4096)
+                for ($y=0; $y -lt 1000; $y++) {
+                    [System.Runtime.InteropServices.Marshal]::Copy([IntPtr]::Add($sourceData.Scan0,$y*$sourceData.Stride),$row,0,4096)
+                    [System.Runtime.InteropServices.Marshal]::Copy($row,0,[IntPtr]::Add($targetData.Scan0,$y*$targetData.Stride),4096)
+                }
+            } finally { $wide.UnlockBits($targetData) }
+        } finally { $master.UnlockBits($sourceData) }
+        $wide.Save((Join-Path $brandDirectory 'ace-logo-16x10.png'),[System.Drawing.Imaging.ImageFormat]::Png)
+    } finally { $wide.Dispose() }
+
     $dark=[System.Drawing.Bitmap]::new(1024,1024)
     $graphics=[System.Drawing.Graphics]::FromImage($dark)
     try {
