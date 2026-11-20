@@ -19,7 +19,7 @@ no `src/main/java/com/appliedcraftedenergistics/datagen` package and no `src/gen
 | `assets/appliedcraftedenergistics/models/item/me_gas_interface.json` | block item model |
 | `assets/appliedcraftedenergistics/models/block/me_gas_interface.json` | block model (full cube, custom faces) |
 | `assets/appliedcraftedenergistics/blockstates/me_gas_interface.json` | 4 horizontal `facing` variants |
-| `assets/appliedcraftedenergistics/textures/block/me_gas_interface_{front,side,top}.png` | generated 16×16 block textures |
+| `assets/appliedcraftedenergistics/textures/block/me_gas_interface_{front,side,top}.png` | identical native 16×16 gas-interface textures on all six faces |
 | `data/appliedcraftedenergistics/loot_table/blocks/me_gas_interface.json` | drops itself |
 | `data/appliedcraftedenergistics/recipe/gas_cell_{1k,4k,16k,64k,256k}.json` | 5 cell recipes (shapeless) |
 | `data/appliedcraftedenergistics/recipe/me_gas_interface.json` | interface recipe (shaped) |
@@ -94,16 +94,26 @@ The item-colour handler for the LED layer (`BasicStorageCell::getColor`, mirrori
 
 The model ids above are exactly the files shipped here; a mismatch is a silent no-draw.
 
-**ME Gas Interface.** Custom full-cube `elements` model instead of parenting `ae2:block/interface`, because the interface has to be visibly directional: its `north` face (the `facing` front) carries the
-gas port, `up` a concentric ring, all other faces a plain casing wall. `parent` is `minecraft:block/block`
-for the standard block-item display transforms. If the port art is ever considered wrong, the one-line
-fallback is `{"parent": "ae2:block/interface"}` in `models/block/me_gas_interface.json` (that model
-exists, verified: `assets/ae2/models/block/interface.json` = `minecraft:block/cube_all` over
-`ae2:block/interface`), but then the facing variants would be visually identical.
+**ME Gas Interface.** All **six faces are connectable** and intentionally have the **same
+texture**. The existing full-cube model and horizontal facing blockstates are kept for compatibility;
+its `front`, `side` and `top` texture files are byte-identical. The model assigns those three aliases
+across all six faces, with no visual distinction between an input, output, top or service side.
 
-Textures are hand-built 16×16 PNGs (Pillow). Palette was sampled from AE2's own interface texture so the
-device sits in AE2's plate style; none of AE2's pixels are copied. The generator script lives outside the
-repo (`E:\Workspace\.aa-assets-gen\gen_textures.py`) so no tooling files land in `src/main/resources`.
+The artwork follows AE2 19.2's minimalist native **16×16** ME Interface: the white/silver casing,
+purple-gray trim and all pixel geometry are preserved, and only the three blue shades become the
+muted cyan/teal gas-cell ramp. The result has seven colours, matching the original's visual density.
+There are no brass fittings, vents, gauges, fasteners or additional gas symbols.
+
+`tools/prepare_interface_art.ps1` reads `assets/ae2/textures/block/interface.png` from the supplied
+AE2 jar in `libs/` and applies the explicit three-colour mapping. It writes identical copies to
+`me_gas_interface_{front,side,top}.png`, then makes an exact isometric block projection. The logo
+illustration uses the same repeated face on every visible side; its master is retained in
+`docs/branding/source/logo.png`. The script also prepares transparent logo sizes, a dark-background
+version, a title banner and the packaged `icon.png`.
+
+These are AE2-derived visuals, covered by the attribution and CC BY-NC-SA 3.0 terms in
+`THIRD_PARTY_NOTICES.md`. File sizes and regeneration instructions are listed in
+`docs/branding/README.md`. Block behaviour, models, UV coverage and connection logic are unchanged.
 
 ## 3. Ids used, and where each was verified
 

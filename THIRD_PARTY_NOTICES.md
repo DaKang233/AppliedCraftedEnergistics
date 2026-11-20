@@ -24,10 +24,12 @@ The following files are **derivative works** of AE2 textures. They are distribut
 | `assets/appliedcraftedenergistics/textures/item/gas_cell_1k/4k/16k/64k/256k.png` | AE2 19.2 item/fluid storage-cell sprites | The 8-shade housing palette is remapped from AE2's white (item) / copper (fluid) ramps to a gas-specific cyan/teal ramp; the 4 tier-accent colours and the sprite geometry are unchanged. |
 | `assets/appliedcraftedenergistics/textures/block/drive/drive_cells.png` | AE2 19.2 drive cell sheet | Same housing-palette remap for the five drive-cell slices. |
 | `assets/appliedcraftedenergistics/textures/item/pressure_card.png`, `volume_card.png`, `type_expansion_card.png`, `relief_valve_card.png` | AE2's `item/card_void.png` (card body) and `item/advanced_card.png` (cyan connector pixels) | The right-hand connector is replaced with AE2's advanced-card cyan pixels; the central 8×8 engraving is redrawn per card; the frame, shading and bottom contacts are kept. |
+| `assets/appliedcraftedenergistics/textures/block/me_gas_interface_{front,side,top}.png` and the interface-derived block/logo artwork in `docs/branding/` / `icon.png` | AE2 19.2 `textures/block/interface.png` | The three blue shades are remapped to the gas-cell cyan/teal ramp. All six block faces keep the same 16×16 pixel layout. The logo illustrates this same block, and size/background/title exports reuse it. |
 
-Both sets are generated deterministically — the generator scripts are part of the source distribution:
-`tools/gen_cell_textures.py` and `tools/gen_card_textures.py` (they read the AE2 jar from `libs/`, never
-the network). Because CC BY-NC-SA 3.0 is a **NonCommercial** licence, this mod (including these textures)
+The cell, drive, upgrade-card and interface textures are generated deterministically. Their generator scripts are part of the source distribution:
+`tools/gen_cell_textures.py`, `tools/gen_card_textures.py` and `tools/prepare_interface_art.ps1`
+(they read the AE2 jar from `libs/`, never the network). The logo master is retained alongside its
+prompt; the preparation script reproduces its size, background and title exports. Because CC BY-NC-SA 3.0 is a **NonCommercial** licence, this mod (including these textures)
 must not be sold or distributed in a commercial offering; free distribution is unaffected.
 
 Attribution to include whenever the textures are reused:

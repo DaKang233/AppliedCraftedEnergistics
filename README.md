@@ -1,5 +1,9 @@
 # Applied Crafted Energistics（应用机巧能源）
 
+<p align="center">
+  <img src="docs/branding/ace-logo-512.png" alt="Applied Crafted Energistics — ME 气体接口方块标志" width="256" />
+</p>
+
 一个 **Applied Energistics 2（AE2）** 附属模组：把 **Create: Crafted Beginning（机械动力：机巧新生）** 的气体接入 ME 网络。
 
 ## 目的
@@ -37,7 +41,7 @@
 gradlew.bat build
 ```
 
-产物：`build/libs/appliedcraftedenergistics-1.21.1-neoforge-0.1.0.jar`。
+产物：`build/libs/appliedcraftedenergistics-1.21.1-neoforge-0.1.1.jar`。
 本地测试用的路径配置见 `env.example`（复制为 `.env` 后填写）。
 
 ## 许可证

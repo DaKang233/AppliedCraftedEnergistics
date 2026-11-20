@@ -1,0 +1,26 @@
+{
+  "project": "Applied Crafted Energistics",
+  "date": "2026-11-20",
+  "texture_method": "Deterministic recolour of native AE2 19.2.20 16x16 interface art; all six faces identical.",
+  "source_entry": "assets/ae2/textures/block/interface.png",
+  "mapping": {
+    "112,140,186": [
+      84,
+      140,
+      156
+    ],
+    "125,169,210": [
+      108,
+      164,
+      178
+    ],
+    "156,211,255": [
+      156,
+      204,
+      214
+    ]
+  },
+  "logo_method": "Built-in image generation",
+  "logo_prompt": "Use case: logo-brand.\nAsset type: square transparent Minecraft mod logo for Applied Crafted Energistics.\nThe attached reference image is AUTHORITATIVE: the actual game block to illustrate. It uses AE2 19.2's minimal 16x16 ME Interface design recoloured in muted teal/cyan for gas. The second reference is a contact sheet of original AE2 19.2 blocks and defines the very simple pixel-art aesthetic.\nRender ONE clean isometric cubic block with top, front-left and right visible. CRITICAL: ALL SIX FACES ARE THE SAME CONNECTABLE INTERFACE, so all three visible faces must have the EXACT SAME pixel texture and pattern, merely projected onto each plane. No differentiated front, top, side, vent, indicator, pipe, brass fitting, screw, control screen or connector. There is no special front face.\nKeep the design exactly as reference 1: one-pixel near-white outer rim, dark muted purple-gray square band, pale inner silver rim, and a simple flat nested-square muted teal/cyan plate with the few straight inset marks from the original AE2 design. The same centred nested square appears on all faces. White/silver, purple-gray and THREE restrained teal/cyan shades only. No warm metal, no gold, no copper. No flowing gas glyph, no swirl, no gauge, no gear.\nStyle: AE2's newest minimalist block texture style, clean crisp 16x16 logical pixel surfaces, broad flat colour areas, no texture noise or tiny details. Make a polished mod icon by using precise isometric geometry and modest planar lighting, with top slightly brighter and right slightly darker. NO extra geometry, NO bevel sculpture, NO glossy 3D material, NO realistic render, NO smooth gradient painted across the surfaces, NO soft anti-aliasing inside the pixel pattern. The result should look like a beautiful enlarged Minecraft inventory block.\nSquare canvas, centred block occupying about 82% of the height, transparent padding around it. Genuine alpha-transparent background, no background tile or rounded square, no cast shadow, no atmospheric glow, no particles, no steam. No text, no initials, no watermark. This is the final logo icon, not a mockup sheet.",
+  "transparency_cleanup_prompt": "Use case: background-extraction.\nEdit target: the attached transparent isometric cube logo.\nChange ONLY the transparency boundary. Preserve the cube, exact proportions, all three identical face patterns, colours, lighting and pixels inside the six-edged outer cube silhouette.\nThe image has stray white flecks, irregular white edge blobs and a few detached white dots OUTSIDE the cube. Remove ALL of those. Make everything outside the single precise six-sided cube silhouette truly alpha-transparent. The silhouette must be six perfectly straight clean lines joining the top point, upper-right corner, lower-right corner, bottom point, lower-left corner and upper-left corner. Use at most one pixel of edge anti-aliasing, no white matte, halo or fringe. Preserve all actual white casing INSIDE that straight-edged silhouette.\nDo not add anything, do not redesign faces, do not recolour, do not add shadow, glow or background. Keep square canvas and the same centred placement. Return one final transparent logo PNG."
+}
