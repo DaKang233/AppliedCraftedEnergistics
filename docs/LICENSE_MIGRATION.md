@@ -1,10 +1,11 @@
-# Licence change: LGPL-3.0-only
+# Licence change: LGPL v3.0
 
 Effective date: 2026-11-22
 
 Applied Crafted Energistics' own source code, data files and original assets are now licensed under
-**LGPL-3.0-only**. The previous `LGPL-3.0-or-later` grant is no longer offered for ACE's original
-work: recipients may not choose a later LGPL version for it.
+**LGPL v3.0**. The standard SPDX metadata for this licence is **`LGPL-3.0-only`**. The previous
+`LGPL-3.0-or-later` grant is no longer offered for ACE's original work: recipients may not choose a
+later LGPL version for it.
 
 ## Scope
 
@@ -21,10 +22,10 @@ identifier and the project notice, not by editing the licence text.
 
 The original 0.2.2 release and jar were distributed under the licence that applied when they were
 published (`LGPL-3.0-or-later`). On 2026-11-22 the 0.2.2 artifact was rebuilt and re-published with
-ACE's own source under **LGPL-3.0-only**, without changing the version string.
+ACE's own source under **LGPL v3.0** (SPDX: `LGPL-3.0-only`), without changing the version string.
 
 Copies obtained under the earlier 0.2.2 artifact keep the rights granted with that copy; the
-re-published artifact and the current source are offered under LGPL-3.0-only. This does not revoke
+re-published artifact and the current source are offered under LGPL v3.0 only. This does not revoke
 rights already granted.
 
 ## Third-party exceptions
