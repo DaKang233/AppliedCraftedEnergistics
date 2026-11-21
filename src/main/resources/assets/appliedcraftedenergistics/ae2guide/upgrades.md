@@ -92,3 +92,13 @@ tooltip lists the equivalent view in gas terms:
 <RecipeFor id="appliedcraftedenergistics:volume_card" />
 <RecipeFor id="appliedcraftedenergistics:type_expansion_card" />
 <RecipeFor id="appliedcraftedenergistics:relief_valve_card" />
+
+## Interface and bus cards
+
+- **Slot Control Card** — unlocks per-slot INPUT / OUTPUT / BOTH / OFF control on the ME Gas Interface.
+- **Safety Card** — vents dangerous overpressure from the ME Gas Interface through CCB's real gas release.
+- **Gas Pressure Card** — installs in an AE2 import/export bus and sets the gas target pressure.
+
+<RecipeFor id="appliedcraftedenergistics:slot_control_card" />
+<RecipeFor id="appliedcraftedenergistics:safety_valve_card" />
+<RecipeFor id="appliedcraftedenergistics:gas_pressure_card" />

@@ -84,3 +84,13 @@ item_ids:
 <RecipeFor id="appliedcraftedenergistics:volume_card" />
 <RecipeFor id="appliedcraftedenergistics:type_expansion_card" />
 <RecipeFor id="appliedcraftedenergistics:relief_valve_card" />
+
+## 接口与总线卡
+
+- **逐槽控制卡** — 解锁气体 ME 接口逐槽 INPUT / OUTPUT / BOTH / OFF 控制。
+- **安全卡** — 通过 CCB 的真实气体释放机制，为气体 ME 接口的危险超压泄压。
+- **气体压力卡** — 装入 AE2 输入/输出总线，设置气体目标压力。
+
+<RecipeFor id="appliedcraftedenergistics:slot_control_card" />
+<RecipeFor id="appliedcraftedenergistics:safety_valve_card" />
+<RecipeFor id="appliedcraftedenergistics:gas_pressure_card" />

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {"item": "ae2:basic_card"},
+    {"item": "createcraftedbeginning:airtight_sheet"},
+    {"item": "createcraftedbeginning:airtight_valve"}
+  ],
+  "result": {
+    "count": 1,
+    "id": "appliedcraftedenergistics:safety_valve_card"
+  }
+}
