@@ -1,5 +1,5 @@
 # Copyright (c) 2026 DaKang233.
-# SPDX-License-Identifier: LGPL-3.0-or-later
+# SPDX-License-Identifier: LGPL-3.0-only
 
 """Generate the 1M-256M gas cell icons and ME Drive sheet.
 

@@ -48,7 +48,7 @@ The logo master was created with built-in image generation using the exact block
 native AE2 textures as references. The game texture itself is a deterministic recolour, not an
 AI approximation. These AE2-derived textures and logo images retain **CC BY-NC-SA 3.0** terms and
 the attribution in `THIRD_PARTY_NOTICES.md`. The preparation script follows the project's
-LGPL-3.0-or-later code licence.
+LGPL-3.0-only code licence.
 
 Validation covers native dimensions, the exact three-colour mapping, equality of all six face
 references, true logo transparency, reproducible exports and the copies included in the mod jar.

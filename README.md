@@ -61,7 +61,7 @@ gradlew.bat build
 
 ## 许可证
 
-- 本模组的代码与原创资源：**LGPL-3.0-or-later**，全文见 `LICENSE`；
+- 本模组的代码与原创资源：**LGPL-3.0-only**，全文见 `LICENSE`；不再提供 “or later” 选项，迁移说明见 `docs/LICENSE_MIGRATION.md`；
 - 衍生自 AE2 的贴图：**CC BY-NC-SA 3.0**，清单与署名见 `THIRD_PARTY_NOTICES.md`（本项目为非商业项目）。
 
 ## 文档
@@ -71,4 +71,5 @@ gradlew.bat build
 - `docs/P2P_NOTES.md` — 气体 P2P 隧道
 - `docs/NEW_MECHANICS.md` — 逐槽设置、总线压力卡、AE2 原生设备接入、JEI 与存档稳定性等新机制
 - `docs/GAS_CELLS.md` — 气体元件档位、MEGA 配方条件与数据包覆盖说明
+- `docs/LICENSE_MIGRATION.md` — LGPL-3.0-only 许可迁移说明
 - `docs/RUNTIME_VERIFICATION.md` — 运行验证记录

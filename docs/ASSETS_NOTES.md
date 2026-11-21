@@ -61,7 +61,7 @@ script. The script never downloads anything and never writes outside `src/main/r
 **Provenance / licensing.** The cell and drive textures are recolours of Applied Energistics 2's own
 art, used under AE2's asset terms (AE2 is distributed under LGPL-3.0 for code with assets under a
 non-commercial share-alike licence). This mod is non-commercial and its own source is
-LGPL-3.0-or-later; if you redistribute the *art* separately, keep the same non-commercial share-alike
+LGPL-3.0-only; if you redistribute the *art* separately, keep the same non-commercial share-alike
 terms and credit TeamAppliedEnergistics.
 
 ### 2.1 The ME Drive needs a *block* model per cell (easy to miss)

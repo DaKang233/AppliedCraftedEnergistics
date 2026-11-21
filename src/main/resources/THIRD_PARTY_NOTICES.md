@@ -11,7 +11,7 @@ AE2 is distributed under **three separate licenses**, and they apply to differen
 | Part of AE2 | License | How it affects this mod |
 |---|---|---|
 | **AE2 API** (`appeng.api.*`, and the interfaces it declares) | **MIT** — (c) 2013–2020 AlgorithmX2 et al. | ACE only calls the public API, so the API's MIT terms apply and no copyleft is triggered for ACE's own code. |
-| **AE2 mod code** (implementation, not API) | **LGPL-3.0** (the source headers grant "either version 3 … or any later version") | ACE does not copy AE2 implementation code. If any code in this repository is later found to be adapted from AE2 source, that part stays under **LGPL-3.0-or-later**, which is compatible with this project's license. |
+| **AE2 mod code** (implementation, not API) | **LGPL-3.0** (the source headers grant "either version 3 … or any later version") | ACE does not copy AE2 implementation code. If any code in this repository is later found to be adapted from AE2 source, that part stays under **LGPL-3.0-or-later**; ACE itself is **LGPL-3.0-only**, and the upstream or-later option is not extended to ACE's original code. |
 | **Textures and Models** | **CC BY-NC-SA 3.0** — (c) 2020 Ridanisaurus Rid, (c) 2013–2020 AlgorithmX2 et al. | **Relevant: ACE ships derived textures (below).** |
 
 ### Derived textures (CC BY-NC-SA 3.0)
@@ -62,5 +62,7 @@ is compatible with this project's licence.
 ## This mod's own licence
 
 ACE's own source code, data files and original assets are licensed under
-**LGPL-3.0-or-later** (see `LICENSE`). The derived textures listed above are additionally subject to
-CC BY-NC-SA 3.0 as described in this file.
+**LGPL-3.0-only** (see `LICENSE`). This is deliberately not "or later": no later LGPL version is
+offered for ACE's original work. Third-party portions that are adapted from an upstream
+LGPL-3.0-or-later work remain under their upstream terms, as noted above. The derived textures listed
+above are additionally subject to CC BY-NC-SA 3.0 as described in this file.
