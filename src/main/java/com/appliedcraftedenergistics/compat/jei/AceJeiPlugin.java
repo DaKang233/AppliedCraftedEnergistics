@@ -24,6 +24,7 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;
+import mezz.jei.api.registration.IAdvancedRegistration;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -31,6 +32,7 @@ import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.fml.ModList;
 import net.ty.createcraftedbeginning.api.gas.GasStack;
 import net.ty.createcraftedbeginning.content.airtights.gasfilter.VirtualGasItems;
 import org.jetbrains.annotations.Nullable;
@@ -69,6 +71,25 @@ public final class AceJeiPlugin implements IModPlugin {
 
         AppliedCraftedEnergistics.LOGGER.info(
                 "JEI integration: gas ingredients can be dragged onto ME interface and bus config slots");
+    }
+
+    @Override
+    public void registerAdvanced(IAdvancedRegistration registration) {
+        // AE2's JEI integration exposes a converter registry for non-item ingredient types.
+        // Registering gas there makes the normal JEI '+' pattern transfer include CCB gas
+        // inputs and outputs. Keep the direct API reference behind a reflective call so JEI
+        // without ae2jeiintegration still loads this plugin.
+        if (!ModList.get().isLoaded("ae2jeiintegration")) {
+            return;
+        }
+        try {
+            Class.forName("com.appliedcraftedenergistics.compat.jei.AceAe2JeiIntegration")
+                    .getMethod("register")
+                    .invoke(null);
+        } catch (ReflectiveOperationException | LinkageError e) {
+            AppliedCraftedEnergistics.LOGGER.warn(
+                    "JEI integration: could not register the CCB gas pattern-transfer converter", e);
+        }
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
