@@ -30,8 +30,7 @@ The following files are **derivative works** of AE2 textures. They are distribut
 The cell, drive, upgrade-card and interface textures are generated deterministically. Their generator scripts are part of the source distribution:
 `tools/gen_cell_textures.py`, `tools/gen_card_textures.py` and `tools/prepare_interface_art.ps1`
 (they read the AE2 jar from `libs/`, never the network). The logo master is retained alongside its
-prompt; the preparation script reproduces its size, background and title exports. Because CC BY-NC-SA 3.0 is a **NonCommercial** licence, this mod (including these textures)
-must not be sold or distributed in a commercial offering; free distribution is unaffected.
+prompt; the preparation script reproduces its size, background and title exports. Because CC BY-NC-SA 3.0 is a **NonCommercial** licence, the **AE2-derived textures** must not be used in a commercial offering; free distribution of the mod is unaffected.
 
 Attribution to include whenever the textures are reused:
 > Textures derived from Applied Energistics 2 (c) 2020 Ridanisaurus Rid, (c) 2013–2020 AlgorithmX2 et al.,

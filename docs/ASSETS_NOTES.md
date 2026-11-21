@@ -60,7 +60,7 @@ script. The script never downloads anything and never writes outside `src/main/r
 
 **Provenance / licensing.** The cell and drive textures are recolours of Applied Energistics 2's own
 art, used under AE2's asset terms (AE2 is distributed under LGPL-3.0 for code with assets under a
-non-commercial share-alike licence). This mod is non-commercial and its own source is
+non-commercial share-alike licence). The mod's own source is
 LGPL v3.0; if you redistribute the *art* separately, keep the same non-commercial share-alike
 terms and credit TeamAppliedEnergistics.
 

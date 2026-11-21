@@ -27,8 +27,7 @@ The following files are **derivative works** of AE2 textures. They are distribut
 
 Both sets are generated deterministically — the generator scripts are part of the source distribution:
 `tools/gen_cell_textures.py` and `tools/gen_card_textures.py` (they read the AE2 jar from `libs/`, never
-the network). Because CC BY-NC-SA 3.0 is a **NonCommercial** licence, this mod (including these textures)
-must not be sold or distributed in a commercial offering; free distribution is unaffected.
+the network). Because CC BY-NC-SA 3.0 is a **NonCommercial** licence, the **AE2-derived textures** must not be used in a commercial offering; free distribution of the mod is unaffected.
 
 Attribution to include whenever the textures are reused:
 > Textures derived from Applied Energistics 2 (c) 2020 Ridanisaurus Rid, (c) 2013–2020 AlgorithmX2 et al.,
