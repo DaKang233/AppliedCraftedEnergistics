@@ -17,11 +17,15 @@ work: recipients may not choose a later LGPL version for it.
 The canonical LGPL-3.0 text in `LICENSE` is unchanged; the "only" choice is expressed by the SPDX
 identifier and the project notice, not by editing the licence text.
 
-## Not retroactive
+## Re-release of 0.2.2
 
-The already-published 0.2.2 GitHub release and its jar were distributed under the licence that applied
-when they were published (`LGPL-3.0-or-later`). This change applies to the source after this migration
-and to subsequent builds/releases. It does not revoke rights already granted for 0.2.2.
+The original 0.2.2 release and jar were distributed under the licence that applied when they were
+published (`LGPL-3.0-or-later`). On 2026-11-22 the 0.2.2 artifact was rebuilt and re-published with
+ACE's own source under **LGPL-3.0-only**, without changing the version string.
+
+Copies obtained under the earlier 0.2.2 artifact keep the rights granted with that copy; the
+re-published artifact and the current source are offered under LGPL-3.0-only. This does not revoke
+rights already granted.
 
 ## Third-party exceptions
 
