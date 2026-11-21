@@ -5,12 +5,14 @@ package com.appliedcraftedenergistics.integration;
 
 import appeng.api.behaviors.ExternalStorageStrategy;
 import appeng.api.behaviors.GenericSlotCapacities;
+import appeng.api.behaviors.ContainerItemStrategy;
 import appeng.api.behaviors.StackExportStrategy;
 import appeng.api.behaviors.StackImportStrategy;
 import appeng.api.stacks.AEKeyType;
 import appeng.parts.automation.StorageExportStrategy;
 import appeng.parts.automation.StorageImportStrategy;
 import com.appliedcraftedenergistics.gas.GasAmounts;
+import com.appliedcraftedenergistics.gas.GasKey;
 import com.appliedcraftedenergistics.gas.GasKeyType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -73,15 +75,17 @@ public final class ACEGasIntegration {
 
         // Lets ME Interfaces and Pattern Providers hold gas in their pattern/slot inventory.
         GenericSlotCapacities.register(GasKeyType.TYPE, INTERFACE_SLOT_CAPACITY);
+
+        // AE2-native container marking: left-click marks the item, right-click marks the gas.
+        // This is the same mechanism Applied Mekanistics uses for Mekanism chemicals.
+        ContainerItemStrategy.register(GasKeyType.TYPE, GasKey.class, new GasContainerItemStrategy());
     }
 
     private static StackImportStrategy createImportStrategy(ServerLevel level, BlockPos fromPos, Direction fromSide) {
-        return new StorageImportStrategy<>(GasCapabilities.BLOCK, GasHandlerStrategy.INSTANCE, level, fromPos,
-                fromSide);
+        return GasBusPressureStrategies.createImportStrategy(level, fromPos, fromSide);
     }
 
     private static StackExportStrategy createExportStrategy(ServerLevel level, BlockPos fromPos, Direction fromSide) {
-        return new StorageExportStrategy<>(GasCapabilities.BLOCK, GasHandlerStrategy.INSTANCE, level, fromPos,
-                fromSide);
+        return GasBusPressureStrategies.createExportStrategy(level, fromPos, fromSide);
     }
 }

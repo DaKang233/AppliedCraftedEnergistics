@@ -13,6 +13,9 @@ import com.appliedcraftedenergistics.init.ACECapabilities;
 import com.appliedcraftedenergistics.init.ACEMenus;
 import com.appliedcraftedenergistics.init.ACEParts;
 import com.appliedcraftedenergistics.integration.ACEGasIntegration;
+import com.appliedcraftedenergistics.integration.AeInterfaceGasCompat;
+import com.appliedcraftedenergistics.integration.CcbGasGenericInventoryCompat;
+
 import com.appliedcraftedenergistics.gas.GasKeyType;
 
 import appeng.api.stacks.AEKeyType;
@@ -63,6 +66,11 @@ public final class AppliedCraftedEnergistics {
         ACEParts.register(modBus);
 
 
+
+        // Restores gas support for AE2's stock ME Interface: its internal slots are exposed to CCB
+        // pipes as fixed 1 atm vessels in both directions (automation/crafting support).
+        modBus.addListener(AeInterfaceGasCompat::registerCapabilities);
+        modBus.addListener(CcbGasGenericInventoryCompat::registerCapabilities);
 
         container.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
