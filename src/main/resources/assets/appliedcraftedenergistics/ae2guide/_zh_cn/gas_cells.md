@@ -65,6 +65,20 @@ item_ids:
 
 即使没有 MEGA Cells，高容量元件本身仍会注册；可以通过创造模式或命令获得，但没有默认生存配方。
 
+## 删除默认 MEGA 配方
+
+配置项：
+
+```text
+recipes.enable_mega_cell_recipes = true
+```
+
+控制是否加载默认的 MEGA-gated 1M–256M 配方。在
+`config/appliedcraftedenergistics-common.toml` 中设为 `false`，即可彻底移除这些默认配方；
+之后可以用数据包提供自己的配方。
+
+这个开关与 MEGA Cells 的 `mod_loaded` 检查相互独立：即使安装了 MEGA Cells，关闭该配置项后默认配方也不会加载。
+
 ## 不安装 MEGA Cells 时启用 1M–256M
 
 配方是普通 JSON 数据。世界或整合包可以提供一个同路径的数据包文件来覆盖默认配方：

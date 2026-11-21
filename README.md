@@ -42,9 +42,13 @@
 |---|---|---|
 | `gas_interface.idlePower` | 8.0 | 接口待机耗电（AE/t） |
 | `gas_p2p.bufferVolumeLiters` | 4000 | 气体 P2P 每个面的缓冲体积（升，承压 16 atm） |
+| `recipes.enable_mega_cell_recipes` | true | 是否加载默认 1M-256M MEGA Cells 配方；设为 false 可让数据包提供自己的高容量配方 |
 
 接口的逐槽目标数量、目标压力与传输模式在 GUI 中设置；0.1.x 的 `bufferVolumeLiters` / `supplyPressureKpa` /
 `transferRate` / `energyPerKiloGasUnit` 已废弃（旧配置项会被加载器忽略）。
+
+`recipes.enable_mega_cell_recipes=false` 只会移除默认的 MEGA-gated 配方，不会注销 1M-256M 元件本身；
+高容量元件仍可被创造模式、命令或自定义数据包配方获得。详见 `docs/GAS_CELLS.md`。
 
 ## 构建
 
@@ -65,4 +69,6 @@ gradlew.bat build
 - `docs/CCB_PRESSURE_MATH.md` — GU / 升 / Pa 与容量换算
 - `docs/UPGRADE_CARDS_PLAN.md` — 元件升级卡设计与数值
 - `docs/P2P_NOTES.md` — 气体 P2P 隧道
+- `docs/NEW_MECHANICS.md` — 逐槽设置、总线压力卡、AE2 原生设备接入、JEI 与存档稳定性等新机制
+- `docs/GAS_CELLS.md` — 气体元件档位、MEGA 配方条件与数据包覆盖说明
 - `docs/RUNTIME_VERIFICATION.md` — 运行验证记录

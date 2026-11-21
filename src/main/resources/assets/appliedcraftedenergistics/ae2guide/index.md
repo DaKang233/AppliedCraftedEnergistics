@@ -27,6 +27,7 @@ providers, and teleported across the network with a P2P tunnel.
 
 ## See Also
 
+- [ME Gas Interface and Automation](gas_interface.md)
 - [Gas Storage Cells](gas_cells.md)
 - [Gas P2P Tunnel](gas_p2p_tunnel.md)
 - [Cell Upgrade Cards](upgrades.md)

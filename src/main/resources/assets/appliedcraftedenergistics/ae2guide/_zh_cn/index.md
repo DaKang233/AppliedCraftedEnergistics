@@ -26,6 +26,7 @@ navigation:
 
 ## 另见
 
+- [ME 气体接口与自动化](gas_interface.md)
 - [气体存储元件](gas_cells.md)
 - [气体 P2P 隧道](gas_p2p_tunnel.md)
 - [元件升级卡](upgrades.md)

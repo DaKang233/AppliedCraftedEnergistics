@@ -15,6 +15,7 @@ import com.appliedcraftedenergistics.init.ACEParts;
 import com.appliedcraftedenergistics.integration.ACEGasIntegration;
 import com.appliedcraftedenergistics.integration.AeInterfaceGasCompat;
 import com.appliedcraftedenergistics.integration.CcbGasGenericInventoryCompat;
+import com.appliedcraftedenergistics.recipe.MegaCellRecipeCondition;
 
 import com.appliedcraftedenergistics.gas.GasKeyType;
 
@@ -26,6 +27,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,6 +50,11 @@ public final class AppliedCraftedEnergistics {
         modBus.addListener((RegisterEvent event) -> {
             if (event.getRegistryKey().equals(AEKeyType.REGISTRY_KEY)) {
                 ACEGasIntegration.registerKeyType(event.getRegistry(AEKeyType.REGISTRY_KEY));
+            }
+            if (event.getRegistryKey().equals(NeoForgeRegistries.Keys.CONDITION_CODECS)) {
+                event.register(NeoForgeRegistries.Keys.CONDITION_CODECS,
+                        id("mega_cell_recipes"),
+                        () -> MegaCellRecipeCondition.CODEC);
             }
         });
 

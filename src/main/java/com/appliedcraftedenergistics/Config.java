@@ -33,6 +33,7 @@ public final class Config {
     public static final class Common {
         public final ModConfigSpec.DoubleValue interfaceIdlePower;
         public final ModConfigSpec.IntValue gasP2pBufferVolumeLiters;
+        public final ModConfigSpec.BooleanValue enableMegaCellRecipes;
 
         Common(ModConfigSpec.Builder builder) {
             builder.comment("Settings for the ME Gas Interface").push("gas_interface");
@@ -49,6 +50,15 @@ public final class Config {
                             "The buffer is what lets CCB's solver move gas through the tunnel at all:",
                             "an endpoint without a real volume is connected but never transfers.")
                     .defineInRange("bufferVolumeLiters", 4_000, 100, 1_000_000);
+            builder.pop();
+
+            builder.comment("Recipe settings").push("recipes");
+            this.enableMegaCellRecipes = builder
+                    .comment("Load the default 1M-256M gas cell recipes.",
+                            "These recipes additionally require MEGA Cells and its cell components.",
+                            "Set to false to remove the default MEGA-gated recipes; a datapack can",
+                            "then provide its own 1M-256M recipes without MEGA Cells.")
+                    .define("enable_mega_cell_recipes", true);
             builder.pop();
         }
     }

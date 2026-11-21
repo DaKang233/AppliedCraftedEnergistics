@@ -3,6 +3,9 @@
     {
       "type": "neoforge:mod_loaded",
       "modid": "megacells"
+    },
+    {
+      "type": "appliedcraftedenergistics:mega_cell_recipes"
     }
   ],
   "type": "minecraft:crafting_shapeless",

@@ -68,6 +68,21 @@ Their recipe files contain a `neoforge:mod_loaded` condition for `megacells`. Th
 The high-tier cell items themselves are still registered without MEGA Cells. They can be obtained
 through the creative menu or commands, but have no default survival recipe.
 
+## Removing the default MEGA recipes
+
+The mod config option:
+
+```text
+recipes.enable_mega_cell_recipes = true
+```
+
+controls whether the default MEGA-gated 1M–256M recipes load. Set it to `false` in
+`config/appliedcraftedenergistics-common.toml` to remove those default recipes entirely, then provide
+your own recipes through a datapack if desired.
+
+This is independent of the MEGA Cells mod check: with the option disabled, the recipes are absent even
+when MEGA Cells is installed.
+
 ## Enabling 1M–256M without MEGA Cells
 
 Recipe files are ordinary JSON data. A world or modpack datapack can override the default recipe by
