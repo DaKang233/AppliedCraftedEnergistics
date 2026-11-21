@@ -50,7 +50,7 @@
   "tooltip.appliedcraftedenergistics.cell.overfilled_note": "已超装：请取出气体，或安装安全阀卡。",
   "item.appliedcraftedenergistics.slot_control_card": "逐槽控制卡",
   "item.appliedcraftedenergistics.slot_control_card.desc": "解锁气体 ME 接口九个槽位各自的输入 / 输出 / 双向 / 关闭控制。",
-  "item.appliedcraftedenergistics.safety_valve_card": "安全阀卡",
+  "item.appliedcraftedenergistics.safety_valve_card": "安全卡",
   "item.appliedcraftedenergistics.safety_valve_card.desc": "当气体 ME 接口压力危险时，通过机械动力：机巧新生的真实气体释放机制自动泄压。",
   "gui.appliedcraftedenergistics.slot_mode.input": "输入",
   "gui.appliedcraftedenergistics.slot_mode.output": "输出",

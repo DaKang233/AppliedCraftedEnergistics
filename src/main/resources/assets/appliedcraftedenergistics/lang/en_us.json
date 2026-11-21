@@ -50,7 +50,7 @@
   "tooltip.appliedcraftedenergistics.cell.overfilled_note": "Over-filled: remove gas or install a Relief Valve Card.",
   "item.appliedcraftedenergistics.slot_control_card": "Slot Control Card",
   "item.appliedcraftedenergistics.slot_control_card.desc": "Unlocks independent Input / Output / Both / Off control for each of the gas ME Interface's nine slots.",
-  "item.appliedcraftedenergistics.safety_valve_card": "Safety Valve Card",
+  "item.appliedcraftedenergistics.safety_valve_card": "Safety Card",
   "item.appliedcraftedenergistics.safety_valve_card.desc": "Vents dangerous overpressure from the gas ME Interface through Create: Crafted Beginning's real gas release.",
   "gui.appliedcraftedenergistics.slot_mode.input": "Input",
   "gui.appliedcraftedenergistics.slot_mode.output": "Output",
