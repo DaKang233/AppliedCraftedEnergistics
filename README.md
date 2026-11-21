@@ -61,7 +61,7 @@ gradlew.bat build
 
 ## 许可证
 
-- 本模组的代码与原创资源：**LGPL v3.0**（SPDX: `LGPL-3.0-only`），全文见 `LICENSE`；不再提供 “or later” 选项，迁移说明见 `docs/LICENSE_MIGRATION.md`；
+- 本模组的代码与原创资源：**LGPL v3.0**（SPDX: `LGPL-3.0-only`），全文见 `LICENSE`；
 - 衍生自 AE2 的贴图：**CC BY-NC-SA 3.0**，清单与署名见 `THIRD_PARTY_NOTICES.md`。
 
 ## 文档
