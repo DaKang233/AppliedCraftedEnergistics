@@ -219,3 +219,16 @@ Locked, no longer assumed:
   `client/GasKeyRenderHandler.java`, and the interface screen is expected to use AE2/vanilla widgets.
 * No `gas` key-type icon texture: AE2 renders channel icons through the registered `AEKeyRenderHandler`.
 * No JEI/EMI, no Ponder scenes.
+
+
+## New gas sample and machine-card icons
+
+`gas_sample`, `slot_control_card`, `safety_valve_card` and `gas_pressure_card` now have distinct
+native 16×16 textures instead of sharing the high-pressure cell-card placeholder. They use a
+gas-puff identity token, independent slider controls, a red-exclamation danger triangle and a
+pressure setpoint scale. The safety card uses a gold basic connector, as required by its recipe;
+the two other cards use advanced cyan connectors. Existing models and item behaviour are unchanged.
+
+Run `python tools/gen_card_textures.py --new-items-only` to reproduce these four files and
+`docs/images/interface_items.png`. Details, source behaviour and provenance are recorded in
+`docs/NEW_ITEM_ARTWORK.md`; original four-card generation remains the default.
