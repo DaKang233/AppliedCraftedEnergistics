@@ -39,6 +39,11 @@ public final class ACEGasClient {
         registerCellModel("gas_cell_16k", ACEItems.GAS_CELL_16K.get());
         registerCellModel("gas_cell_64k", ACEItems.GAS_CELL_64K.get());
         registerCellModel("gas_cell_256k", ACEItems.GAS_CELL_256K.get());
+        registerCellModel("gas_cell_1m", ACEItems.GAS_CELL_1M.get());
+        registerCellModel("gas_cell_4m", ACEItems.GAS_CELL_4M.get());
+        registerCellModel("gas_cell_16m", ACEItems.GAS_CELL_16M.get());
+        registerCellModel("gas_cell_64m", ACEItems.GAS_CELL_64M.get());
+        registerCellModel("gas_cell_256m", ACEItems.GAS_CELL_256M.get());
     }
 
     private static void registerCellModel(String itemPath, net.minecraft.world.item.Item item) {
@@ -60,6 +65,11 @@ public final class ACEGasClient {
                 ACEItems.GAS_CELL_4K.get(),
                 ACEItems.GAS_CELL_16K.get(),
                 ACEItems.GAS_CELL_64K.get(),
-                ACEItems.GAS_CELL_256K.get());
+                ACEItems.GAS_CELL_256K.get(),
+                ACEItems.GAS_CELL_1M.get(),
+                ACEItems.GAS_CELL_4M.get(),
+                ACEItems.GAS_CELL_16M.get(),
+                ACEItems.GAS_CELL_64M.get(),
+                ACEItems.GAS_CELL_256M.get());
     }
 }

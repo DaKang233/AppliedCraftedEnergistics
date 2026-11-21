@@ -6,6 +6,11 @@
   "item.appliedcraftedenergistics.gas_cell_16k": "16k ME 气体存储元件",
   "item.appliedcraftedenergistics.gas_cell_64k": "64k ME 气体存储元件",
   "item.appliedcraftedenergistics.gas_cell_256k": "256k ME 气体存储元件",
+  "item.appliedcraftedenergistics.gas_cell_1m": "1M ME 气体存储元件",
+  "item.appliedcraftedenergistics.gas_cell_4m": "4M ME 气体存储元件",
+  "item.appliedcraftedenergistics.gas_cell_16m": "16M ME 气体存储元件",
+  "item.appliedcraftedenergistics.gas_cell_64m": "64M ME 气体存储元件",
+  "item.appliedcraftedenergistics.gas_cell_256m": "256M ME 气体存储元件",
 
   "block.appliedcraftedenergistics.me_gas_interface": "ME 气体接口",
   "block.appliedcraftedenergistics.me_gas_interface.desc": "将 ME 网络与相邻的气体储罐或气管网连接起来，中间带一个真实的缓冲罐。",

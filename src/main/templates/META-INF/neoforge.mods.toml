@@ -55,3 +55,11 @@ description='''${mod_description}'''
     versionRange="${ccb_version_range}"
     ordering="AFTER"
     side="BOTH"
+
+# MEGA Cells - optional progression prerequisite for the 1M-256M gas cell recipes.
+[[dependencies.${mod_id}]]
+    modId="megacells"
+    type="optional"
+    versionRange="[4.11.0,)"
+    ordering="AFTER"
+    side="BOTH"

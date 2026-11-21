@@ -42,7 +42,7 @@ public final class ACECards {
     /** Vents overpressure from the gas ME Interface through CCB's real gas release. */
     public static final DeferredItem<Item> SAFETY_VALVE_CARD = card("safety_valve_card");
 
-    /** Shared upgrade group so that card tooltips aggregate across all five cell tiers. */
+    /** Shared upgrade group so that card tooltips aggregate across all gas cell tiers. */
     public static final String GROUP = AppliedCraftedEnergistics.MODID + ".gas_cell";
 
     private ACECards() {

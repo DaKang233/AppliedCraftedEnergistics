@@ -6,6 +6,11 @@
   "item.appliedcraftedenergistics.gas_cell_16k": "16k ME Gas Storage Cell",
   "item.appliedcraftedenergistics.gas_cell_64k": "64k ME Gas Storage Cell",
   "item.appliedcraftedenergistics.gas_cell_256k": "256k ME Gas Storage Cell",
+  "item.appliedcraftedenergistics.gas_cell_1m": "1M ME Gas Storage Cell",
+  "item.appliedcraftedenergistics.gas_cell_4m": "4M ME Gas Storage Cell",
+  "item.appliedcraftedenergistics.gas_cell_16m": "16M ME Gas Storage Cell",
+  "item.appliedcraftedenergistics.gas_cell_64m": "64M ME Gas Storage Cell",
+  "item.appliedcraftedenergistics.gas_cell_256m": "256M ME Gas Storage Cell",
 
   "block.appliedcraftedenergistics.me_gas_interface": "ME Gas Interface",
   "block.appliedcraftedenergistics.me_gas_interface.desc": "Bridges an ME network and an adjacent gas tank or gas pipe network, with a real buffer tank in between.",

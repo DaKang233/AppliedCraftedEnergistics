@@ -17,7 +17,8 @@ navigation:
 CCB gases a first-class ME resource: they can be stored in ME cells, moved by buses and pattern
 providers, and teleported across the network with a P2P tunnel.
 
-- **Gas Storage Cells** (1k / 4k / 16k / 64k / 256k) — store gas in the ME network.
+- **Gas Storage Cells** (1k / 4k / 16k / 64k / 256k / 1M / 4M / 16M / 64M / 256M) — store gas in the ME network.
+  The 1M-256M tiers require **MEGA Cells** and use its cell components in their recipes.
   **1 AE byte = 1,000 GU** (CCB defines 1 GU as one litre of gas at 100 kPa), and the terminal displays
   kGU, so 1 kGU is one cubic metre at reference pressure.
 - **ME Gas Interface** — connects the ME network to an adjacent gas tank or gas pipe run through a real
