@@ -7,6 +7,8 @@ import appeng.api.stacks.AEKey;
 import appeng.api.stacks.AEKeyType;
 import com.appliedcraftedenergistics.AppliedCraftedEnergistics;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
@@ -32,6 +34,11 @@ public final class GasKeyType extends AEKeyType {
     @Override
     public MapCodec<? extends AEKey> codec() {
         return GasKey.MAP_CODEC;
+    }
+
+    @Override
+    public AEKey loadKeyFromTag(HolderLookup.Provider registries, CompoundTag tag) {
+        return GasKey.fromTag(registries, tag);
     }
 
     @Override

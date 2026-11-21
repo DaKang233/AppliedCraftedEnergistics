@@ -4,6 +4,7 @@
 package com.appliedcraftedenergistics.gas;
 
 import com.appliedcraftedenergistics.AppliedCraftedEnergistics;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
@@ -11,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -40,6 +42,7 @@ public final class GasKey extends AEKey {
     public static final MapCodec<GasKey> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             ResourceLocation.CODEC.fieldOf(TAG_GAS).forGetter(GasKey::getGasId))
             .apply(instance, GasKey::new));
+    public static final Codec<GasKey> CODEC = MAP_CODEC.codec();
 
     private final ResourceLocation gasId;
 
@@ -101,14 +104,30 @@ public final class GasKey extends AEKey {
 
     @Override
     public CompoundTag toTag(HolderLookup.Provider registries) {
-        CompoundTag tag = new CompoundTag();
-        tag.putString(TAG_GAS, gasId.toString());
-        return tag;
+        var ops = registries.createSerializationContext(NbtOps.INSTANCE);
+        return (CompoundTag) CODEC.encodeStart(ops, this).getOrThrow();
+    }
+
+    /** Reads a key back from NBT using the same codec used to write it. */
+    @Nullable
+    public static GasKey fromTag(HolderLookup.Provider registries, CompoundTag tag) {
+        var ops = registries.createSerializationContext(NbtOps.INSTANCE);
+        try {
+            return CODEC.decode(ops, tag).getOrThrow().getFirst();
+        } catch (Exception e) {
+            AppliedCraftedEnergistics.LOGGER.debug("Failed to decode gas key from NBT: {}", tag, e);
+            return null;
+        }
     }
 
     @Override
     public Object getPrimaryKey() {
-        return gasId;
+        // AE2's KeyCounter indexes variants by *reference identity* of the primary key.
+        // Returning the deserialized ResourceLocation would split one gas into multiple
+        // entries after a save/load (each decoded key has a new ResourceLocation instance),
+        // making crafting simulation insert and extract different sub-maps. The registry
+        // Gas object is canonical, the same way Applied Mekanistics returns its Chemical.
+        return isKnown() ? getGas() : gasId;
     }
 
     @Override
