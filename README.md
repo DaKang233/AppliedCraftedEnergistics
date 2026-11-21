@@ -26,6 +26,14 @@
 | Create: Crafted Beginning | 0.1.x |
 | MEGA Cells（可选） | 4.11.x；1M-256M 气体元件配方前置 |
 
+## 1M–256M 元件与 MEGA Cells
+
+1M–256M 气体元件本身始终注册，但它们的默认配方带有 `neoforge:mod_loaded` 条件：
+**只有安装 MEGA Cells 时，配方才会加载并在 JEI/指南中显示。** 不安装 MEGA Cells 时，这些元件仍可通过创造模式或命令获得，但没有默认生存配方。
+
+如果整合包希望在没有 MEGA Cells 的情况下启用它们，可以用同路径数据包覆盖配方：删除 `neoforge:conditions`，替换 `megacells:*` 材料即可。详细示例见游戏内指南的 **Gas Storage Cells** 页面和 `docs/` 下的说明。
+
+
 ## 配置
 
 配置文件：`config/appliedcraftedenergistics-common.toml`（首次启动生成）。修改后保存并重启游戏即可生效。
