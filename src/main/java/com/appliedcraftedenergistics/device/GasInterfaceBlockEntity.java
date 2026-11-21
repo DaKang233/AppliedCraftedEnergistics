@@ -9,9 +9,12 @@ import java.util.List;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.IGrid;
 import appeng.api.networking.security.IActionSource;
+import appeng.api.storage.ISubMenuHost;
 import appeng.api.upgrades.IUpgradeInventory;
 import appeng.api.upgrades.IUpgradeableObject;
 import appeng.blockentity.grid.AENetworkedBlockEntity;
+import appeng.menu.ISubMenu;
+import appeng.menu.MenuOpener;
 
 import com.appliedcraftedenergistics.Config;
 import com.appliedcraftedenergistics.device.gasinterface.GasInterfaceLogic;
@@ -20,11 +23,14 @@ import com.appliedcraftedenergistics.device.gasinterface.GasInterfaceStorageView
 import com.appliedcraftedenergistics.device.gasinterface.GasSafetyValve;
 import com.appliedcraftedenergistics.init.ACEBlockEntities;
 import com.appliedcraftedenergistics.init.ACEBlocks;
+import com.appliedcraftedenergistics.init.ACEMenus;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,7 +43,8 @@ import net.minecraft.world.level.block.state.BlockState;
  * <p>Stock management lives in {@link GasInterfaceLogic}; the CCB capability is
  * {@link GasInterfaceStorageView}. This class is the block entity glue: node, ticking, NBT and drops.</p>
  */
-public class GasInterfaceBlockEntity extends AENetworkedBlockEntity implements IUpgradeableObject {
+public class GasInterfaceBlockEntity extends AENetworkedBlockEntity
+        implements IUpgradeableObject, ISubMenuHost {
 
     /** Upgrade slots: speed cards plus the slot-control and safety-valve cards. */
     public static final int UPGRADE_SLOTS = 6;
@@ -55,7 +62,7 @@ public class GasInterfaceBlockEntity extends AENetworkedBlockEntity implements I
 
     public GasInterfaceBlockEntity(BlockPos pos, BlockState state) {
         super(ACEBlockEntities.ME_GAS_INTERFACE.get(), pos, state);
-        this.logic = new GasInterfaceLogic(ACEBlocks.ME_GAS_INTERFACE, this::setChanged);
+        this.logic = new GasInterfaceLogic(ACEBlocks.ME_GAS_INTERFACE, this::setChanged, this::onUpgradesChanged);
         this.gasView = new GasInterfaceStorageView(logic);
 
         getMainNode()
@@ -81,9 +88,33 @@ public class GasInterfaceBlockEntity extends AENetworkedBlockEntity implements I
         return logic.getSettings();
     }
 
+    /** Called whenever the upgrade inventory changes; re-applies modes stored on the control card. */
+    private void onUpgradesChanged() {
+        if (logic != null) {
+            logic.onUpgradesChanged();
+        }
+        setChanged();
+    }
+
     @Override
     public IUpgradeInventory getUpgrades() {
         return logic.getUpgrades();
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Submenu host (gateway/slot settings)
+    // ---------------------------------------------------------------------------------------------
+
+    @Override
+    public void returnToMainMenu(Player player, ISubMenu subMenu) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            MenuOpener.returnTo(ACEMenus.ME_GAS_INTERFACE.get(), serverPlayer, subMenu.getLocator());
+        }
+    }
+
+    @Override
+    public ItemStack getMainMenuIcon() {
+        return new ItemStack(ACEBlocks.ME_GAS_INTERFACE.get());
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -120,6 +151,8 @@ public class GasInterfaceBlockEntity extends AENetworkedBlockEntity implements I
     public void loadTag(CompoundTag data, HolderLookup.Provider registries) {
         super.loadTag(data, registries);
         logic.load(data, registries);
+        // A saved slot-control card carries the per-slot modes; re-apply them after loading.
+        logic.onUpgradesChanged();
         // Legacy settings are intentionally not migrated: 0.2.0 replaces the single mode/supply
         // pressure pair with per-slot settings, whose defaults are the safe behaviour.
         data.remove(TAG_LEGACY_MODE);

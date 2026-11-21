@@ -7,8 +7,10 @@ import com.appliedcraftedenergistics.device.gasinterface.GasInterfaceLogic;
 import com.appliedcraftedenergistics.device.gasinterface.GasSlotMode;
 import com.appliedcraftedenergistics.device.gasinterface.GasSlotSettings;
 import com.appliedcraftedenergistics.gas.GasKey;
+import com.appliedcraftedenergistics.init.ACEMenus;
 import com.appliedcraftedenergistics.item.GasSampleItem;
 
+import appeng.api.stacks.AEKey;
 import appeng.api.stacks.GenericStack;
 import appeng.menu.SlotSemantics;
 import appeng.menu.guisync.GuiSync;
@@ -16,31 +18,31 @@ import appeng.menu.implementations.UpgradeableMenu;
 import appeng.menu.slot.AppEngSlot;
 import appeng.menu.slot.FakeSlot;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import net.ty.createcraftedbeginning.api.canister.CanisterCapabilities;
 import net.ty.createcraftedbeginning.api.gas.Gas;
 import net.ty.createcraftedbeginning.api.gas.GasStack;
-
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.ItemStack;
 import net.ty.createcraftedbeginning.content.airtights.gasfilter.VirtualGasItems;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
- * Menu of the gas ME Interface: nine config slots (target gas + amount), nine cache slots and the six
- * upgrade slots.
+ * Menu of the gas ME Interface: nine config slots (target gas, later edited per slot), nine cache
+ * slots and the six upgrade slots.
  *
- * <p>AE2 has no generic per-slot "pressure/mode" payload, so the interface's nine packed settings are
- * synchronised with {@link GuiSync}. Player edits are sent as client actions and validated/clamped on
- * the server before they are written to the block entity, so a crafted packet cannot exceed the
- * device's limits.</p>
+ * <p>Amount, target pressure and transfer mode are edited in the {@link
+ * com.appliedcraftedenergistics.device.gasinterface.GasSlotSettingsMenu} submenu, opened from the gear
+ * button above a marked config slot (or by middle-clicking that slot). The main menu only synchronises
+ * the packed per-slot settings for the tooltip.</p>
  */
 public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
 
-    private static final String ACTION_SET_PRESSURE = "setGasPressure";
-    private static final String ACTION_CYCLE_MODE = "cycleGasMode";
     private static final String ACTION_MARK_SLOT = "markGasSlot";
     private static final String ACTION_MARK_GAS_ID = "markGasSlotId";
-    private static final String ACTION_ADJUST_AMOUNT = "adjustGasAmount";
+    private static final String ACTION_OPEN_SLOT_SETTINGS = "openGasSlotSettings";
 
     // Packed per-slot settings: mode (2 bit) | explicit (1 bit) << 2 | effective atm (5 bit) << 3.
     @GuiSync(100)
@@ -63,7 +65,7 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
     public int slotSettings8;
 
     public GasInterfaceMenu(int id, Inventory playerInventory, GasInterfaceBlockEntity host) {
-        super(com.appliedcraftedenergistics.init.ACEMenus.ME_GAS_INTERFACE.get(), id, playerInventory, host);
+        super(ACEMenus.ME_GAS_INTERFACE.get(), id, playerInventory, host);
 
         var config = host.getLogic().getConfig().createMenuWrapper();
         for (int i = 0; i < GasInterfaceLogic.SLOTS; i++) {
@@ -75,11 +77,9 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
             addSlot(new AppEngSlot(storage, i), SlotSemantics.STORAGE);
         }
 
-        registerClientAction(ACTION_SET_PRESSURE, String.class, this::onSetPressure);
-        registerClientAction(ACTION_CYCLE_MODE, String.class, this::onCycleMode);
         registerClientAction(ACTION_MARK_SLOT, String.class, this::onMarkSlot);
         registerClientAction(ACTION_MARK_GAS_ID, String.class, this::onMarkGasId);
-        registerClientAction(ACTION_ADJUST_AMOUNT, String.class, this::onAdjustAmount);
+        registerClientAction(ACTION_OPEN_SLOT_SETTINGS, Integer.class, this::onOpenSlotSettings);
     }
 
     private static int pack(GasSlotSettings settings) {
@@ -142,16 +142,8 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
     }
 
     // ---------------------------------------------------------------------------------------------
-    // Client -> server edits
+    // Client -> server actions
     // ---------------------------------------------------------------------------------------------
-
-    public void sendSetPressure(int slot, int atm) {
-        sendClientAction(ACTION_SET_PRESSURE, slot + ":" + atm);
-    }
-
-    public void sendCycleMode(int slot) {
-        sendClientAction(ACTION_CYCLE_MODE, Integer.toString(slot));
-    }
 
     public void sendMarkSlot(int slot) {
         sendClientAction(ACTION_MARK_SLOT, Integer.toString(slot));
@@ -162,76 +154,18 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
         sendClientAction(ACTION_MARK_GAS_ID, slot + ":" + gasId);
     }
 
-    public void sendAdjustAmount(int slot, long delta) {
-        sendClientAction(ACTION_ADJUST_AMOUNT, slot + ":" + delta);
+    public void sendOpenSlotSettings(int slot) {
+        sendClientAction(ACTION_OPEN_SLOT_SETTINGS, slot);
     }
 
-    private void onSetPressure(String payload) {
-        if (isClientSide()) {
+    private void onOpenSlotSettings(int slot) {
+        if (isClientSide() || slot < 0 || slot >= GasInterfaceLogic.SLOTS) {
             return;
         }
-        var parts = payload.split(":");
-        if (parts.length != 2) {
-            return;
+        if (getPlayer() instanceof ServerPlayer player) {
+            com.appliedcraftedenergistics.device.gasinterface.GasSlotSettingsMenu
+                    .open(player, getHost(), slot);
         }
-        int slot = parseInt(parts[0], -1);
-        int atm = parseInt(parts[1], Integer.MIN_VALUE);
-        if (slot < 0 || slot >= GasInterfaceLogic.SLOTS || atm == Integer.MIN_VALUE) {
-            return;
-        }
-        var settings = getHost().getSettings().get(slot);
-        if (atm < 0) {
-            settings.setPressureExplicit(false);
-        } else {
-            // Always validate on the server: never trust the packet's range.
-            settings.setTargetPressureAtm(Math.clamp(atm, 0, GasSlotSettings.MAX_PRESSURE_ATM));
-            settings.setPressureExplicit(true);
-        }
-        getHost().setChanged();
-        broadcastChanges();
-    }
-
-    private void onCycleMode(String payload) {
-        if (isClientSide() || !getHost().getLogic().isSlotControlCardInstalled()) {
-            return;
-        }
-        int slot = parseInt(payload, -1);
-        if (slot < 0 || slot >= GasInterfaceLogic.SLOTS) {
-            return;
-        }
-        var settings = getHost().getSettings().get(slot);
-        var modes = GasSlotMode.values();
-        settings.setMode(modes[(settings.getMode().ordinal() + 1) % modes.length]);
-        getHost().setChanged();
-        broadcastChanges();
-    }
-
-    private void onAdjustAmount(String payload) {
-        if (isClientSide()) {
-            return;
-        }
-        var parts = payload.split(":");
-        if (parts.length != 2) {
-            return;
-        }
-        int slot = parseInt(parts[0], -1);
-        long delta = parseLong(parts[1], 0);
-        if (slot < 0 || slot >= GasInterfaceLogic.SLOTS || delta == 0) {
-            return;
-        }
-        var config = getHost().getLogic().getConfig();
-        var current = config.getStack(slot);
-        if (current == null) {
-            return;
-        }
-        long newAmount = Math.clamp(current.amount() + delta, 0, GasInterfaceLogic.MAX_SLOT_AMOUNT);
-        if (newAmount <= 0) {
-            config.setStack(slot, null);
-        } else {
-            config.setStack(slot, new GenericStack(current.what(), newAmount));
-        }
-        getHost().setChanged();
-        broadcastChanges();
     }
 
     private void onMarkSlot(String payload) {
@@ -262,7 +196,6 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
                 }
             }
             if (gas == null) {
-                // CCB's own virtual gas item (also what JEI hands out for gas ingredients).
                 GasStack virtualGas = VirtualGasItems.readGasSample(held);
                 if (!virtualGas.isEmpty()) {
                     gas = virtualGas.getGasType();
@@ -303,10 +236,9 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
             return;
         }
         var gas = Gas.findById(id);
-        if (gas == null) {
-            return;
+        if (gas != null) {
+            applyGasMark(slot, gas);
         }
-        applyGasMark(slot, gas);
     }
 
     private static int parseInt(String value, int fallback) {
@@ -317,11 +249,9 @@ public class GasInterfaceMenu extends UpgradeableMenu<GasInterfaceBlockEntity> {
         }
     }
 
-    private static long parseLong(String value, long fallback) {
-        try {
-            return Long.parseLong(value.trim());
-        } catch (NumberFormatException e) {
-            return fallback;
-        }
+    @Nullable
+    public AEKey getTargetKey(int slot) {
+        var stack = getHost().getLogic().getConfig().getStack(slot);
+        return stack == null ? null : stack.what();
     }
 }

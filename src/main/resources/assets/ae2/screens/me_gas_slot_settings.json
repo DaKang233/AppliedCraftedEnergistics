@@ -1,0 +1,48 @@
+{
+  "$schema": "schema.json",
+  "includes": [
+    "common/common.json"
+  ],
+  "generatedBackground": {
+    "width": 176,
+    "height": 168
+  },
+  "slots": {
+    "MACHINE_OUTPUT": {
+      "left": 10,
+      "top": 24
+    }
+  },
+  "text": {
+    "dialog_title": {
+      "text": { "translate": "gui.appliedcraftedenergistics.slot_settings" },
+      "position": { "left": 8, "top": 6 }
+    },
+    "pressure_label": {
+      "text": { "translate": "gui.appliedcraftedenergistics.slot.pressure_label" },
+      "position": { "left": 8, "top": 104 }
+    },
+    "pressure_value": {
+      "text": { "text": "" },
+      "position": { "left": 8, "top": 116 }
+    },
+    "mode_label": {
+      "text": { "translate": "gui.appliedcraftedenergistics.slot.mode_label" },
+      "position": { "left": 8, "top": 126 }
+    },
+    "mode_value": {
+      "text": { "text": "" },
+      "position": { "left": 8, "top": 138 }
+    }
+  },
+  "widgets": {
+    "back": { "left": 152, "top": -5, "width": 20, "height": 20 },
+    "amountToStock": { "left": 30, "top": 18, "width": 134, "height": 62 },
+    "amountToStockInput": { "left": 58, "top": 43, "width": 66, "height": 12 },
+    "save": { "left": 69, "top": 146, "width": 38, "height": 18 },
+    "pressure_down": { "left": 96, "top": 102, "width": 18, "height": 16 },
+    "pressure_up": { "left": 118, "top": 102, "width": 18, "height": 16 },
+    "pressure_auto": { "left": 140, "top": 102, "width": 30, "height": 16 },
+    "mode_button": { "left": 96, "top": 124, "width": 72, "height": 16 }
+  }
+}

@@ -7,6 +7,7 @@ import com.appliedcraftedenergistics.ACEText;
 import com.appliedcraftedenergistics.AppliedCraftedEnergistics;
 import com.appliedcraftedenergistics.device.GasInterfaceBlockEntity;
 import com.appliedcraftedenergistics.device.GasInterfaceMenu;
+import com.appliedcraftedenergistics.device.gasinterface.GasSlotSettingsMenu;
 
 import appeng.menu.implementations.MenuTypeBuilder;
 
@@ -34,6 +35,14 @@ public final class ACEMenus {
                     .create(GasInterfaceMenu::new, GasInterfaceBlockEntity.class)
                     .withMenuTitle(host -> ACEText.INTERFACE_TITLE)
                     .buildUnregistered(AppliedCraftedEnergistics.id("me_gas_interface")));
+
+    /** Per-slot settings submenu (amount / pressure / mode) of the gas ME Interface. */
+    public static final DeferredHolder<MenuType<?>, MenuType<GasSlotSettingsMenu>> GAS_SLOT_SETTINGS = MENU_TYPES
+            .register("gas_slot_settings", () -> MenuTypeBuilder
+                    .create(GasSlotSettingsMenu::new, GasInterfaceBlockEntity.class)
+                    .withMenuTitle(host -> net.minecraft.network.chat.Component
+                            .translatable("gui.appliedcraftedenergistics.slot_settings"))
+                    .buildUnregistered(AppliedCraftedEnergistics.id("gas_slot_settings")));
 
     private ACEMenus() {
     }

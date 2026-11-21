@@ -17,10 +17,13 @@ import appeng.util.ConfigInventory;
 import com.appliedcraftedenergistics.device.GasInterfaceBlockEntity;
 import com.appliedcraftedenergistics.gas.GasKey;
 import com.appliedcraftedenergistics.gas.GasKeyType;
+import com.appliedcraftedenergistics.init.ACECards;
+import com.appliedcraftedenergistics.init.ACEDataComponents;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.ty.createcraftedbeginning.api.gas.GasStack;
 
@@ -51,19 +54,19 @@ public final class GasInterfaceLogic {
     private final IUpgradeInventory upgrades;
     private final GasInterfaceSettings settings = new GasInterfaceSettings();
 
-    public GasInterfaceLogic(ItemLike machineItem, Runnable listener) {
+    public GasInterfaceLogic(ItemLike machineItem, Runnable inventoryListener, Runnable upgradeListener) {
         this.config = ConfigInventory.configStacks(SLOTS)
                 .supportedType(GasKeyType.TYPE)
                 .slotFilter(key -> key instanceof GasKey)
                 .allowOverstacking(false)
-                .changeListener(listener)
+                .changeListener(inventoryListener)
                 .build();
         this.storage = ConfigInventory.storage(SLOTS)
                 .supportedType(GasKeyType.TYPE)
                 .slotFilter(key -> key instanceof GasKey)
-                .changeListener(listener)
+                .changeListener(inventoryListener)
                 .build();
-        this.upgrades = UpgradeInventories.forMachine(machineItem, GasInterfaceBlockEntity.UPGRADE_SLOTS, listener::run);
+        this.upgrades = UpgradeInventories.forMachine(machineItem, GasInterfaceBlockEntity.UPGRADE_SLOTS, upgradeListener::run);
     }
 
     public ConfigInventory getConfig() {
@@ -83,7 +86,68 @@ public final class GasInterfaceLogic {
     }
 
     public boolean isSlotControlCardInstalled() {
-        return upgrades.isInstalled(com.appliedcraftedenergistics.init.ACECards.SLOT_CONTROL_CARD);
+        return findSlotControlCard() != null;
+    }
+
+    /**
+     * Re-applies the per-slot modes stored on the installed slot-control card. A fresh card (no stored
+     * modes) puts every slot back to bidirectional; a configured card restores its saved modes.
+     */
+    public void onUpgradesChanged() {
+        var card = findSlotControlCard();
+        if (card == null) {
+            return;
+        }
+        var encoded = card.get(ACEDataComponents.SLOT_MODES.get());
+        if (encoded == null || encoded.isBlank()) {
+            setAllModes(GasSlotMode.BOTH);
+            return;
+        }
+        var parts = encoded.split(",");
+        for (int slot = 0; slot < SLOTS; slot++) {
+            int ordinal = 0;
+            if (slot < parts.length) {
+                try {
+                    ordinal = Integer.parseInt(parts[slot].trim());
+                } catch (NumberFormatException ignored) {
+                    ordinal = 0;
+                }
+            }
+            settings.get(slot).setMode(GasSlotMode.byIndex(ordinal));
+        }
+    }
+
+    /** Saves the current per-slot modes onto the installed slot-control card. */
+    public void saveModesToCard() {
+        var card = findSlotControlCard();
+        if (card == null) {
+            return;
+        }
+        var builder = new StringBuilder();
+        for (int slot = 0; slot < SLOTS; slot++) {
+            if (slot > 0) {
+                builder.append(',');
+            }
+            builder.append(settings.get(slot).getMode().ordinal());
+        }
+        card.set(ACEDataComponents.SLOT_MODES.get(), builder.toString());
+    }
+
+    @Nullable
+    private ItemStack findSlotControlCard() {
+        for (int slot = 0; slot < upgrades.size(); slot++) {
+            var stack = upgrades.getStackInSlot(slot);
+            if (stack.is(ACECards.SLOT_CONTROL_CARD)) {
+                return stack;
+            }
+        }
+        return null;
+    }
+
+    private void setAllModes(GasSlotMode mode) {
+        for (int slot = 0; slot < SLOTS; slot++) {
+            settings.get(slot).setMode(mode);
+        }
     }
 
     /** The mode CCB should see for a slot right now (all BOTH without the slot-control card). */

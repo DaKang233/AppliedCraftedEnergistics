@@ -5,6 +5,7 @@ package com.appliedcraftedenergistics.init;
 
 import appeng.api.upgrades.Upgrades;
 import appeng.core.definitions.AEItems;
+import appeng.core.definitions.AEParts;
 import com.appliedcraftedenergistics.AppliedCraftedEnergistics;
 import com.appliedcraftedenergistics.cell.GasStorageCellItem;
 import net.minecraft.world.item.Item;
@@ -57,6 +58,10 @@ public final class ACECards {
 
     /** Runs during common setup, after items exist. */
     public static void registerUpgrades() {
+        // Per-bus target pressure card: registered on the AE2 import/export bus part items.
+        Upgrades.add(ACEItems.GAS_PRESSURE_CARD, AEParts.IMPORT_BUS, 1);
+        Upgrades.add(ACEItems.GAS_PRESSURE_CARD, AEParts.EXPORT_BUS, 1);
+
         for (var cell : ACEItems.GAS_CELLS) {
             var item = cell.get();
 

@@ -40,5 +40,8 @@ public final class ACEScreens {
 
         MenuScreens.ScreenConstructor<com.appliedcraftedenergistics.device.GasInterfaceMenu, GasInterfaceScreen> factory = GasInterfaceScreen::new;
         event.register(ACEMenus.ME_GAS_INTERFACE.get(), factory);
+
+        event.register(ACEMenus.GAS_SLOT_SETTINGS.get(),
+                (MenuScreens.ScreenConstructor<com.appliedcraftedenergistics.device.gasinterface.GasSlotSettingsMenu, GasSlotSettingsScreen>) GasSlotSettingsScreen::new);
     }
 }
