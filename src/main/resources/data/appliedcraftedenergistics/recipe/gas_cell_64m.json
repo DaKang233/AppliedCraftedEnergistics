@@ -16,6 +16,12 @@
     },
     {
       "item": "createcraftedbeginning:gas_canister"
+    },
+    {
+      "item": "createcraftedbeginning:airtight_tank"
+    },
+    {
+      "item": "createcraftedbeginning:airtight_tank"
     }
   ],
   "result": {
