@@ -19,7 +19,7 @@
   "item.appliedcraftedenergistics.volume_card.desc": "每张为气体元件增加 50% 虚拟容积，每个元件最多 4 张。",
   "item.appliedcraftedenergistics.type_expansion_card": "多类型卡",
   "item.appliedcraftedenergistics.type_expansion_card.desc": "让气体元件多存 4 种气体，每个元件最多 2 张。",
-  "item.appliedcraftedenergistics.relief_valve_card": "安全阀卡",
+  "item.appliedcraftedenergistics.relief_valve_card": "泄压阀卡",
   "item.appliedcraftedenergistics.relief_valve_card.desc": "升级导致元件容量小于存量时，自动排掉超出的气体。",
 
   "appliedcraftedenergistics.key_type.gas": "气体",
@@ -47,7 +47,7 @@
   "tooltip.appliedcraftedenergistics.cell.types": "可存气体种类：%s",
   "tooltip.appliedcraftedenergistics.cell.pressure_note": "气体按元件额定气压折算存储；元件只是虚拟容器，不参与 CCB 的过压机制。",
   "tooltip.appliedcraftedenergistics.cell.carded_note": "升级卡会提升容量、额定气压与可存气体种类，因此装卡后元件显示的 AE 字节数会相应增加。",
-  "tooltip.appliedcraftedenergistics.cell.overfilled_note": "已超装：请取出气体，或安装安全阀卡。",
+  "tooltip.appliedcraftedenergistics.cell.overfilled_note": "已超装：请取出气体，或安装泄压阀卡。",
   "item.appliedcraftedenergistics.slot_control_card": "逐槽控制卡",
   "item.appliedcraftedenergistics.slot_control_card.desc": "解锁气体 ME 接口九个槽位各自的输入 / 输出 / 双向 / 关闭控制。",
   "item.appliedcraftedenergistics.safety_valve_card": "安全卡",
